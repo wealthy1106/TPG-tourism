@@ -3,48 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Show/Hide Forms Based on Input Value in Vue.js</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <style>
+    .parent {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background-color: #ddd;
+    }
+
+    .child1, .child2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .child1 {
+      background-color: rgba(255, 0, 0, 0.5);
+    }
+
+    .child2 {
+      background-color: rgba(0, 0, 255, 0.5);
+    }
+  </style>
 </head>
 <body>
 
-<div id="app">
-  <label for="numberOfForms">Number of Forms:</label>
-  <input type="number" id="numberOfForms" v-model="numberOfForms" @input="updateForms">
-
-  <!-- Sử dụng v-for để lặp qua mảng forms -->
-  <form v-for="(form, index) in forms" :key="index">
-    <label :for="'newInput' + index">New Input {{ index + 1 }}:</label>
-    <input type="text" :id="'newInput' + index" v-model="form.inputValue">
-  </form>
+<div class="parent">
+  <div class="child1">
+    aaaaaaaaaaaaa
+  </div>
+  <div class="child2">
+    <!-- Nội dung của child2 -->
+    ddddddddd
+  </div>
 </div>
-
-<script> 
-new Vue({
-  el: '#app',
-  data: {
-    numberOfForms: 1,
-    forms: [{ inputValue: '' }]
-  },
-  methods: {
-    updateForms: function() {
-      // Cập nhật số lượng forms khi giá trị của input thay đổi
-      const currentNumberOfForms = this.forms.length;
-      const targetNumberOfForms = parseInt(this.numberOfForms);
-
-      if (targetNumberOfForms > currentNumberOfForms) {
-        // Thêm forms mới nếu số lượng tăng
-        for (let i = currentNumberOfForms; i < targetNumberOfForms; i++) {
-          this.forms.push({ inputValue: '' });
-        }
-      } else if (targetNumberOfForms < currentNumberOfForms) {
-        // Loại bỏ forms nếu số lượng giảm
-        this.forms.splice(targetNumberOfForms);
-      }
-    }
-  }
-});
-</script>
 
 </body>
 </html>

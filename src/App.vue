@@ -12,16 +12,5 @@ import fot from '../src/components/footer.vue'
     </div>
 
     <fot />
-    <FacebookChatbox />
   </div>
 </template>
-
-<script>
-import FacebookChatbox from './components/FacebookChatbox.vue';
-
-export default {
-  components: {
-    FacebookChatbox
-  }
-}
-</script>

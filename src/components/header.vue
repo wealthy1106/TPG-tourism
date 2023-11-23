@@ -40,18 +40,28 @@
             <!-- Navbar & Hero Start -->
             <div class="container-fluid position-relative p-0">
                   <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                        <a href="" class="navbar-brand p-0">
-                              <img src="../assets/logo.png" style="width: 150%; height: 180px;" alt="">
+                        <a href="" class="navbar-brand p-0 col-1">
+                              <img src="../assets/logo.png" style="width: 100%; height: 180px;" alt="">
                               <!-- <h1 class="text-primary m-0">
                                      <i class="fa fa-map-marker-alt me-3"></i> 
                                     TPG Tourism
                               </h1> -->
                         </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                               data-bs-target="#navbarCollapse">
                               <span class="fa fa-bars"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                        </button> -->
+                        <div style="padding: 10px;" class="col-6">
+                              <div class="position-relative w-75 mx-auto animated slideInDown">
+                                    <input style="height: 55px;"
+                                          class="form-control border-1 rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                                          placeholder="Nhập nơi bạn muốn đến" v-model="timkiem">
+                                    <button type="button" @click="tk"
+                                          class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2"
+                                          style="margin-top: 7px;">Search</button>
+                              </div>
+                        </div>
+                        <div class="collapse navbar-collapse col-5" id="navbarCollapse">
                               <div class="navbar-nav ms-auto py-0">
 
                                     <router-link :to="{ name: 'trangchu' }" class="nav-item nav-link">
@@ -87,8 +97,6 @@
 
                         </div>
                   </nav>
-
-
             </div>
             <!-- Navbar & Hero End -->
             <!-- Footer Start -->
@@ -111,6 +119,7 @@ export default {
                   hienlen: false,
                   hienlai: false,
                   lienhe: [],
+                  timkiem: '',
             }
 
       },
@@ -148,9 +157,13 @@ export default {
             trangchu() {
                   this.$router.push({ name: "trangchu" });
             },
-            // tai_lai_trang() {
-            //       window.location.reload();
-            // },
+            tk() {
+                  this.$router.push({ name: "timkiemtinh", params: { idTDD: this.timkiem } });
+                  // Thực hiện tìm kiếm dựa trên this.timkiem
+                  console.log('Searching for:', this.timkiem);
+                  // Thêm logic tìm kiếm của bạn ở đây
+
+            },
             test() {
                   localStorage.removeItem('token');
                   this.hienlen = false

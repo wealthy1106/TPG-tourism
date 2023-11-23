@@ -2,7 +2,7 @@
 <template>
       <div>
             <div>
-                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-interval="5000" data-ride="carousel">
                         <ol class="carousel-indicators">
                               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -27,16 +27,6 @@
                                     <img src="../assets/hagiang5.jpg" style="height: 100%;" class="d-block w-100" alt="...">
                               </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
-                              data-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
-                              data-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Next</span>
-                        </button>
                   </div>
             </div>
 

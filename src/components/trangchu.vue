@@ -2,7 +2,7 @@
 <template>
       <div>
             <div>
-                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
                         <ol class="carousel-indicators">
                               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active mauli"></li>
                               <li data-target="#carouselExampleIndicators" data-slide-to="1" class="mauli"></li>
@@ -45,17 +45,24 @@
             <h1 class="mb-5">Ưu đãi hấp dẫn</h1>
       </div>
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
+            <!-- <ol class="carousel-indicators">
                   <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
                   <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                   <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol>
+            </ol> -->
             <div class="carousel-inner container">
-                  <div class="carousel-item active">
+                  <div class="carousel-item active" style="position: relative;">
                         <div class="container">
                               <div class="card-deck">
                                     <div class="card" :key="index" v-for="(tt, index) in  tour ">
-                                          <img id="img" :src="tt.hinhT" class="card-img-top" alt="...">
+                                          <div style="position: relative;">
+                                                <img id="img" :src="tt.hinhT" class="card-img-top" alt="...">
+                                                <div style="position: absolute;top: 50px;">
+                                                      <button type="button" class="btn btn-danger">Giảm {{ tt.phantram
+                                                      }}%</button>
+                                                </div>
+                                          </div>
+
                                           <div class="card-body">
                                                 <h5 class="card-title">{{ tt.tenT }}</h5>
                                                 <!-- <h6>Ưu đãi</h6> -->
@@ -72,29 +79,28 @@
                                                             <p class="mb-0">Nơi khởi hành: {{ tt.noikhoihanh }}
                                                             </p>
                                                       </div>
-                                                      <div class="col-3 mr-3 p-0">
+                                                      <div class="col-5 mr-3 p-0">
                                                             <button type="button" class="btn btn-light">
-                                                                  <p class="mb-0" style="text-decoration: line-through;">
-                                                                        {{ tt.giaT }}</p>
+                                                                  <p class="mb-0" style="text-decoration: line-through;">Giá:
+                                                                        {{ tt.giaT }} VND</p>
                                                             </button>
                                                       </div>
-                                                      <div class="col-3 ">
+                                                      <div class="col-5 mr-3 p-0">
                                                             <button type="button" class="btn btn-warning top">
-                                                                  <p class="mb-0">{{ tt.tich }}</p>
+                                                                  Giảm còn<p class="mb-0">{{ tt.tich }} VND</p>
                                                             </button>
                                                       </div>
                                                 </div>
-                                                <!-- <router-link :to="{ name: 'tour', params: { idT: tt.idT } }">
-                                                      <p class="btn btn-primary top" href="">Chi tiết</p>
-                                                </router-link> -->
-                                                <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
-                                                      <button class="btn btn-primary top">Chi tiết</button>
-                                                </router-link>
-                                                ||
-                                                <router-link
-                                                      :to="{ name: 'tourKM', params: { id: tt.idT, tenKM: tt.tenKM } }">
-                                                      <button class="btn btn-primary top">Đặt tour</button>
-                                                </router-link>
+                                                <div style="text-align: center;">
+                                                      <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
+                                                            <button class="btn btn-primary top">Chi tiết</button>
+                                                      </router-link>
+                                                      ||
+                                                      <router-link
+                                                            :to="{ name: 'tourKM', params: { id: tt.idT, tenKM: tt.tenKM } }">
+                                                            <button class="btn btn-primary top">Đặt tour</button>
+                                                      </router-link>
+                                                </div>
                                           </div>
                                     </div>
                               </div>
@@ -104,7 +110,13 @@
                         <div class="container">
                               <div class="card-deck">
                                     <div class="card" :key="index" v-for="(tt, index) in  tour1 ">
-                                          <img id="img" :src="tt.hinhT" class="card-img-top" alt="...">
+                                          <div style="position: relative;">
+                                                <img id="img" :src="tt.hinhT" class="card-img-top" alt="...">
+                                                <div style="position: absolute;top: 50px;">
+                                                      <button type="button" class="btn btn-danger">Giảm {{ tt.phantram
+                                                      }}%</button>
+                                                </div>
+                                          </div>
                                           <div class="card-body">
                                                 <h5 class="card-title">{{ tt.tenT }}</h5>
                                                 <!-- <h6>Ưu đãi</h6> -->
@@ -121,31 +133,28 @@
                                                             <p class="mb-0">Nơi khởi hành: {{ tt.noikhoihanh }}
                                                             </p>
                                                       </div>
-                                                      <div class="col-3 mr-3 p-0">
+                                                      <div class="col-5 mr-3 p-0">
                                                             <button type="button" class="btn btn-light">
-                                                                  <p class="mb-0" style="text-decoration: line-through;">
-                                                                        {{ tt.giaT }}</p>
+                                                                  <p class="mb-0" style="text-decoration: line-through;">Giá:
+                                                                        {{ tt.giaT }} VND</p>
                                                             </button>
                                                       </div>
-                                                      <div class="col-3 ">
+                                                      <div class="col-5 mr-3 p-0">
                                                             <button type="button" class="btn btn-warning top">
-                                                                  <p class="mb-0">{{ tt.tich }}</p>
+                                                                  Giảm còn<p class="mb-0">{{ tt.tich }} VND</p>
                                                             </button>
                                                       </div>
                                                 </div>
-                                                <!-- <router-link :to="{ name: 'tour', params: { idT: tt.idT } }">
-                                                      <p class="btn btn-primary top" href="">Chi tiết</p>
-                                                </router-link> -->
-                                                <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
-                                                      <button class="btn btn-primary top">Chi tiết</button>
-                                                </router-link>
-                                                ||
-                                                <router-link :to="{ name: 'giohang', params: { id: tt.idT } }">
-                                                      <button class="btn btn-primary top">Đặt tour</button>
-                                                </router-link>
-                                                <!-- <router-link :to="{ name: 'giohang', params: { id: tt.idT } }">
-                                                      <button class="btn btn-primary top">Đặt tour</button>
-                                                </router-link> -->
+                                                <div style="text-align: center;">
+                                                      <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
+                                                            <button class="btn btn-primary top">Chi tiết</button>
+                                                      </router-link>
+                                                      ||
+                                                      <router-link :to="{ name: 'giohang', params: { id: tt.idT } }">
+                                                            <button class="btn btn-primary top">Đặt tour</button>
+                                                      </router-link>
+                                                </div>
+
                                           </div>
                                     </div>
                               </div>
@@ -155,7 +164,13 @@
                         <div class="container">
                               <div class="card-deck">
                                     <div class="card" :key="index" v-for="(tt, index) in  tour2 ">
-                                          <img id="img" :src="tt.hinhT" class="card-img-top" alt="...">
+                                          <div style="position: relative;">
+                                                <img id="img" :src="tt.hinhT" class="card-img-top" alt="...">
+                                                <div style="position: absolute;top: 50px;">
+                                                      <button type="button" class="btn btn-danger">Giảm {{ tt.phantram
+                                                      }}%</button>
+                                                </div>
+                                          </div>
                                           <div class="card-body">
                                                 <h5 class="card-title">{{ tt.tenT }}</h5>
                                                 <!-- <h6>Ưu đãi</h6> -->
@@ -172,38 +187,42 @@
                                                             <p class="mb-0">Nơi khởi hành: {{ tt.noikhoihanh }}
                                                             </p>
                                                       </div>
-                                                      <div class="col-3 mr-3 p-0">
+                                                      <div class="col-5 mr-3 p-0">
                                                             <button type="button" class="btn btn-light">
-                                                                  <p class="mb-0" style="text-decoration: line-through;">
-                                                                        {{ tt.giaT }}</p>
+                                                                  <p class="mb-0" style="text-decoration: line-through;">Giá:
+                                                                        {{ tt.giaT }} VND</p>
                                                             </button>
                                                       </div>
-                                                      <div class="col-3 ">
+                                                      <div class="col-5 mr-3 p-0">
                                                             <button type="button" class="btn btn-warning top">
-                                                                  <p class="mb-0">{{ tt.tich }}</p>
+                                                                  Giảm còn<p class="mb-0">{{ tt.tich }} VND</p>
                                                             </button>
                                                       </div>
                                                 </div>
-                                                <!-- <router-link :to="{ name: 'tour', params: { idT: tt.idT } }">
-                                                      <p class="btn btn-primary top" href="">Chi tiết</p>
-                                                </router-link> -->
-                                                <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
-                                                      <button class="btn btn-primary top">Chi tiết</button>
-                                                </router-link>
-                                                ||
-                                                <router-link :to="{ name: 'giohang', params: { id: tt.idT } }">
-                                                      <button class="btn btn-primary top">Đặt tour</button>
-                                                </router-link>
-                                                <!-- <router-link :to="{ name: 'giohang', params: { id: tt.idT } }">
-                                                      <button class="btn btn-primary top">Đặt tour</button>
-                                                </router-link> -->
+                                                <div style="text-align: center;">
+                                                      <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
+                                                            <button class="btn btn-primary top">Chi tiết</button>
+                                                      </router-link>
+                                                      ||
+                                                      <router-link :to="{ name: 'giohang', params: { id: tt.idT } }">
+                                                            <button class="btn btn-primary top">Đặt tour</button>
+                                                      </router-link>
+                                                </div>
+
                                           </div>
                                     </div>
                               </div>
                         </div>
                   </div>
             </div>
-
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+            </a>
       </div>
 
       <div>
@@ -294,13 +313,12 @@
                   </div>
             </div>
       </div>
-
-      <!-- <div class="text-center">
+      <div class="text-center">
             <h1 class="mb-5">Vì sau chọn chúng tôi</h1>
       </div>
       <div class="hinh">
-            <img src="../assets/img.PNG" alt="">
-      </div> -->
+            <img src="../assets/img.png" alt="">
+      </div>
 </template>
 <style>
 .top {
@@ -309,6 +327,17 @@
 
 #img {
       height: 300px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+      font-size: 10rem;
+      height: 50px;
+      width: 50px;
+      /* margin-top: 200px; */
+      background-color: antiquewhite;
+      margin: 200px 50px;
+      /* Kích thước mong muốn, có thể điều chỉnh theo ý muốn */
 }
 
 .carousel-indicators li {
