@@ -12,14 +12,14 @@ const routes = [
             props: true,
       },
       {
-            path: "/tour/:id",
+            path: "/tour/:id/:idLT",
             name: "tour",
             component: () => import("@/components/tour/chitiet.vue"),
             props: true,
       },
       {
             path: "/login",
-            name: "login",
+            name: "dangnhap",
             component: () => import("@/components/login.vue"),
       },
       {
@@ -34,7 +34,7 @@ const routes = [
 
       },
       {
-            path: '/test/:id',
+            path: '/test/:id/:idLT',
             name: 'test',
             component: () => import('@/components/tour/chitiet.vue'),
             props: true,

@@ -4,27 +4,15 @@
             <div>
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
                         <ol class="carousel-indicators">
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active mauli"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1" class="mauli"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2" class="mauli"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="3" class="mauli"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="4" class="mauli"></li>
+                              <li v-for="(tt, index) in tinh" :key="index" data-target="#carouselExampleIndicators"
+                                    :data-slide-to="index" @click="selectImage(index)"
+                                    :class="{ 'active mauli': index === selectedImageIndex, 'mauli': index !== selectedImageIndex }">
+                              </li>
                         </ol>
                         <div class="carousel-inner">
-                              <div class="carousel-item active" style="height: 500px;">
-                                    <img src="../assets/anhdo.jpg" class="d-block w-100" style="height: 100%;" alt="...">
-                              </div>
-                              <div class="carousel-item" style="height: 400px;">
-                                    <img src="../assets/hagiang1.jpg" style="height: 100%;" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item" style="height: 400px;">
-                                    <img src="../assets/hagiang2.jpg" style="height: 100%;" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item" style="height: 400px;">
-                                    <img src="../assets/hagiang3.jpg" style="height: 100%;" class="d-block w-100" alt="...">
-                              </div>
-                              <div class="carousel-item" style="height: 400px;">
-                                    <img src="../assets/hagiang5.jpg" style="height: 100%;" class="d-block w-100" alt="...">
+                              <div :key="index" v-for="(tt, index) in tinh" class="carousel-item"
+                                    :class="{ 'active': index === selectedImageIndex }" style="height: 500px;">
+                                    <img :src="tt.hinh1" class="d-block w-100" style="height: 100%;" alt="...">
                               </div>
                         </div>
                   </div>
@@ -92,7 +80,8 @@
                                                       </div>
                                                 </div>
                                                 <div style="text-align: center;">
-                                                      <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
+                                                      <router-link
+                                                            :to="{ name: 'tour', params: { id: tt.idT, idLT: tt.idLT } }">
                                                             <button class="btn btn-primary top">Chi tiết</button>
                                                       </router-link>
                                                       ||
@@ -146,7 +135,8 @@
                                                       </div>
                                                 </div>
                                                 <div style="text-align: center;">
-                                                      <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
+                                                      <router-link
+                                                            :to="{ name: 'tour', params: { id: tt.idT, idLT: tt.idLT } }">
                                                             <button class="btn btn-primary top">Chi tiết</button>
                                                       </router-link>
                                                       ||
@@ -200,7 +190,8 @@
                                                       </div>
                                                 </div>
                                                 <div style="text-align: center;">
-                                                      <router-link :to="{ name: 'tour', params: { id: tt.idT } }">
+                                                      <router-link
+                                                            :to="{ name: 'tour', params: { id: tt.idT, idLT: tt.idLT } }">
                                                             <button class="btn btn-primary top">Chi tiết</button>
                                                       </router-link>
                                                       ||
@@ -262,7 +253,8 @@
                                                             </button></p>
                                                 </div>
                                                 <div class="d-flex justify-content-center mb-2 top">
-                                                      <router-link :to="{ name: 'tour', params: { id: tt.idT } }"
+                                                      <router-link
+                                                            :to="{ name: 'tour', params: { id: tt.idT, idLT: tt.idLT } }"
                                                             style="border-radius: 30px 0 0 30px;"
                                                             class="btn btn-sm btn-primary px-3 border-end">
                                                             Chi tiết
@@ -372,6 +364,7 @@ export default {
                   firstItem: null,
                   currentSlide: 0,
                   timkiem: '',
+                  selectedImageIndex: 0, // Chỉ số của hình ảnh được chọn
             }
       },
       mounted() {
@@ -436,7 +429,10 @@ export default {
                   console.log('Searching for:', this.timkiem);
                   // Thêm logic tìm kiếm của bạn ở đây
 
-            }
+            },
+            selectImage(index) {
+                  this.selectedImageIndex = index;
+            },
       }
 }
 

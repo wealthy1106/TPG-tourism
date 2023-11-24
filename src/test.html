@@ -3,42 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Itinerary</title>
   <style>
-    .parent {
-      position: relative;
-      width: 300px;
-      height: 200px;
-      background-color: #ddd;
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
     }
 
-    .child1, .child2 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .itinerary-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
     }
 
-    .child1 {
-      background-color: rgba(255, 0, 0, 0.5);
+    .day {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
     }
 
-    .child2 {
-      background-color: rgba(0, 0, 255, 0.5);
+    .event {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .event h3 {
+      margin-top: 0;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .event p {
+      margin: 0;
+      color: #666;
     }
   </style>
 </head>
 <body>
 
-<div class="parent">
-  <div class="child1">
-    aaaaaaaaaaaaa
+  <div class="itinerary-container">
+    <div class="day">Day 1: City Tour</div>
+    <div class="event">
+      <h3>Morning</h3>
+      <p>Visit historical landmarks and museums.</p>
+    </div>
+    <div class="event">
+      <h3>Afternoon</h3>
+      <p>Enjoy local cuisine at popular restaurants.</p>
+    </div>
+    
+    <!-- Repeat the structure for other days and events -->
+
+    <div class="day">Day 2: Nature Excursion</div>
+    <div class="event">
+      <h3>Morning</h3>
+      <p>Explore the beautiful landscapes and hiking trails.</p>
+    </div>
+    <div class="event">
+      <h3>Afternoon</h3>
+      <p>Relax by the beach or go on a boat tour.</p>
+    </div>
   </div>
-  <div class="child2">
-    <!-- Nội dung của child2 -->
-    ddddddddd
-  </div>
-</div>
 
 </body>
 </html>

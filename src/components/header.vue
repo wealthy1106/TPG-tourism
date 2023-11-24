@@ -47,10 +47,7 @@
                                     TPG Tourism
                               </h1> -->
                         </a>
-                        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                              data-bs-target="#navbarCollapse">
-                              <span class="fa fa-bars"></span>
-                        </button> -->
+
                         <div style="padding: 10px;" class="col-6">
                               <div class="position-relative w-75 mx-auto animated slideInDown">
                                     <input style="height: 55px;"
@@ -76,7 +73,8 @@
                                     </router-link>
                                     <!-- <a href="contact.html" class="nav-item nav-link">Contact</a> -->
                               </div>
-                              <router-link v-if="hienlai" to="/login" class="btn btn-primary rounded-pill py-2 px-4">
+                              <router-link v-if="hienlai" :to="{ name: 'dangnhap' }"
+                                    class="btn btn-primary rounded-pill py-2 px-4">
                                     Đăng ký
                               </router-link>
                               <div class="nav-item dropdown" v-if="hienlen">
@@ -96,7 +94,12 @@
 
 
                         </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                              data-bs-target="#navbarCollapse">
+                              <span class="fa fa-bars"></span>
+                        </button>
                   </nav>
+
             </div>
             <!-- Navbar & Hero End -->
             <!-- Footer Start -->
@@ -109,6 +112,10 @@
             <button>test</button>
       </router-link> -->
       <!-- Messenger Plugin chat Code -->
+      <!-- <div>
+            <div id="fb-root"></div>
+            <div id="fb-customer-chat" class="fb-customerchat"></div>
+      </div> -->
 </template>
 <script>
 import axios from 'axios';
@@ -124,22 +131,35 @@ export default {
 
       },
       mounted() {
+            // Mã JavaScript 1
+            // var chatbox = document.getElementById('fb-customer-chat');
+            // chatbox.setAttribute('page_id', '127163283823737');
+            // chatbox.setAttribute('attribution', 'biz_inbox');
 
-            // console.log('aaa')
-            // console.log(this.token)
+            // Mã JavaScript 2
+            // window.fbAsyncInit = function () {
+            //       FB.init({
+            //             xfbml: true,
+            //             version: 'v18.0',
+            //       });
+            // };
+
+            // (function (d, s, id) {
+            //       var js, fjs = d.getElementsByTagName(s)[0];
+            //       if (d.getElementById(id)) return;
+            //       js = d.createElement(s);
+            //       js.id = id;
+            //       js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            //       fjs.parentNode.insertBefore(js, fjs);
+            // })(document, 'script', 'facebook-jssdk');
+
             this.token = localStorage.getItem('token')
-            // console.log(this.token)
-            // console.log(this.hienlen)
             if (this.token != null) {
-                  // console.log('a')
                   this.hienlen = true
                   this.hienlai = false
-                  // this.hienlen = true
-                  // // console.log(this.hienlen)
-                  // this.hienlai = false
+                  this.hienlen = false
+                  this.hienlai = true
             } else {
-                  // this.hienlen = false
-                  // this.hienlai = true
                   this.hienlen = false
                   this.hienlai = true
             }
