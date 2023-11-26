@@ -1,50 +1,72 @@
 
 <template>
-      <div>
-            <div class="panel shadow1">
+      <div
+            style="height: 900px;background: url(https://vcdn1-dulich.vnecdn.net/2022/04/01/cd9-1648805106-2272-1648805130.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=3c-4ukGtszUc5TFifaH3Qg) #fff;">
+            <div class="success-message" v-if="thongbaodangnhap"
+                  style="z-index: 2;width: 600px;text-align: center;margin: 0px auto;top: 50%;height: 20%;padding: 60px;">
+                  <p>Bạn đã đăng nhập thành công.</p>
+            </div>
+            <div class="success-message" v-if="thongbaodangky"
+                  style="z-index: 2;width: 600px;text-align: center;margin: 0px auto;top: 50%;height: 20%;padding: 60px;">
+                  <p>Bạn đã đăng ký thành công.</p>
+            </div>
+            <div class="panel shadow1" style="z-index: 1;">
                   <form class="login-form">
                         <div class="panel-switch animated fadeIn">
                               <button type="button" id="sign_up" class="active-button">Đăng ký</button>
                               <button type="button" id="log_in" class="" disabled>Đăng nhập</button>
                         </div>
-                        <h1 class="animated fadeInUp animate1" id="title-login">Welcome Back !</h1>
-                        <h1 class="animated fadeInUp animate1 hidden" id="title-signup">Welcome !</h1>
+                        <h1 style="text-align: center;" class="animated fadeInUp animate1" id="title-login">Welcome Back !
+                        </h1>
+                        <h1 style="text-align: center;" class="animated fadeInUp animate1 hidden" id="title-signup">Welcome !
+                        </h1>
                         <fieldset id="login-fieldset">
                               <input class="login animated fadeInUp animate2" name="username" type="textbox" required
                                     placeholder="Username" v-model="email1">
                               <input v-model="matkhau1" class="login animated fadeInUp animate3" name="password"
                                     type="password" required placeholder="Password">
                               <p v-if="isAlertVisible" style="color: #ff0505">Nhập sai mời nhập lại</p>
+
                         </fieldset>
                         <fieldset id="signup-fieldset" class="hidden">
                               <div>
                                     <div class="form-row">
                                           <div class="form-group col-md-6">
                                                 <!-- <label for="inputEmail4">Họ Tên</label> -->
-                                                <input v-model="hoten" type="text" class="login animated fadeInUp animate2"
-                                                      name="firstname" placeholder="Họ tên">
+                                                <input style="width: 100%;" v-model="hoten" type="text"
+                                                      class="login animated fadeInUp animate2" name="firstname"
+                                                      placeholder="Họ tên">
                                           </div>
                                           <div class="form-group col-md-2">
-                                                <!-- <label for="inputZip">Giới Tính</label> -->
                                                 <select v-model="gioitinh" name="gioitinh"
-                                                      class="login animated fadeInUp animate2" placeholder="Nam">
-                                                      <!-- <option selected>Choose...</option> -->
-                                                      <option class="login animated fadeInUp animate2" value="0">Nam</option>
-                                                      <option class="login animated fadeInUp animate2" value="1">Nữ</option>
+                                                      class=" select login animated fadeInUp animate2" placeholder="Nam">
+                                                      <option class="login animated fadeInUp animate2" :value="'Nam'">Nam
+                                                      </option>
+                                                      <option class="login animated fadeInUp animate2" :value="'Nữ'">Nữ
+                                                      </option>
                                                 </select>
                                           </div>
                                     </div>
-                                    <div class="form-row">
-                                          <div class="form-group col-md-6">
+                                    <div class="form">
+                                          <div class="form-group">
                                                 <!-- <label for="inputEmail4">Email</label> -->
                                                 <input v-model="email" type="email" class="login animated fadeInUp animate2"
                                                       name="email" placeholder="Email">
                                           </div>
-                                          <div class="form-group col-md-6">
-                                                <!-- <label for="inputPassword4">Mật khẩu</label> -->
-                                                <input v-model="matkhau" type="password"
+                                          <div class="form-group">
+                                                <input v-model="matkhau" :type="hienThiMatKhau ? 'text' : 'password'"
                                                       class="login animated fadeInUp animate2" name="password"
                                                       placeholder="Mật khẩu">
+                                                <br>
+                                                <input class="login animated fadeInUp animate2" type="checkbox"
+                                                      v-model="hienThiMatKhau" style="width: 20px;height: 20px;"> Hiển thị
+                                                mật khẩu
+                                          </div>
+                                          <div class="form-group">
+                                                <input v-model="nhaplaimatkhau" :type="hienThiMatKhau ? 'text' : 'password'"
+                                                      class="login animated fadeInUp animate2" name="password_confirmation"
+                                                      placeholder="Nhập lại mật khẩu">
+                                                <p v-if="!kiemTraMatKhauHopLe()">Mật khẩu không khớp.</p>
                                           </div>
                                     </div>
                                     <div class="form-group">
@@ -73,27 +95,92 @@
 
                                     <!-- <button @click="dangky" class="btn btn-primary">Đăng ký</button> -->
                               </div>
-                              <!-- <input class="login animated fadeInUp animate2" name="username" type="textbox" required
-                                    placeholder="Username" value="">
-                              <input class="login animated fadeInUp animate3" name="password" type="password"
-                                    placeholder="Choose password" required value=""> -->
                         </fieldset>
 
-                        <input type="button" id="login-form-submit" class="login_form button animated fadeInUp animate4"
-                              value="Log in" @click="login">
+                        <input type="button" id="login-form-submit"
+                              class="dangky login_form button animated fadeInUp animate4" value="Log in" @click="login">
                         <input type="button" id="signup-form-submit"
-                              class="login_form button animated fadeInUp animate4 hidden" @click="dangky" value="Đăng ký">
+                              class="login_form button animated fadeInUp animate4 hidden dangky" @click="dangky"
+                              value="Đăng ký">
 
 
                   </form>
             </div>
+            <!-- <div v-if="registrationSuccess" class="success-message" style="z-index: 1;">
+                  <p>Registration successful! Thank you for signing up.</p>
+            </div> -->
       </div>
+
       <!-- <script src="form.js"></script> -->
 </template>
 <style>
+.panel {
+      position: relative;
+      /* hoặc position: absolute; */
+}
+
+.success-message {
+      position: absolute;
+      /* hoặc position: absolute; */
+}
+
+.success-message {
+      background-color: rgb(156, 190, 229);
+      color: white;
+      /* padding: 20px; */
+      border-radius: 5px;
+      /* margin-top: 20px; */
+      width: 600px;
+      text-align: center;
+      margin: 20% 20%;
+      top: 50%;
+      height: 20%;
+      padding: 50px;
+}
+
 * {
       margin: 0;
       padding: 0;
+}
+
+.dangky {
+      margin-left: 50px;
+}
+
+.select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 100px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      background-color: rgba(255, 255, 255);
+      /* Màu nền trong suốt */
+      color: #333;
+      cursor: pointer;
+      outline: none;
+      /* background: #ffff; */
+      /* border: none; */
+      border-radius: 5em;
+      height: 20px;
+      /* width: 80%; */
+      margin: 10px 0;
+      /* padding: 5px; */
+      text-indent: 10px;
+      /* color: #fff; */
+      font-weight: 300;
+}
+
+/* Tuỳ chỉnh kiểu hover và focus */
+.select:hover,
+select:focus {
+      background-color: rgba(255, 255, 255, 1);
+      /* Màu nền khi hover hoặc focus */
+}
+
+#radio {
+      width: 30px;
 }
 
 html {
@@ -104,21 +191,22 @@ html {
 body {
       background: #e5e5e5;
       width: 100%;
-      text-align: center;
+      /* text-align: center; */
       font-family: 'Open Sans', sans-serif;
       font-weight: 600;
       letter-spacing: 1px;
 }
 
 .panel {
-      width: 450px;
+      width: 100%;
       max-width: 90%;
       height: 700px;
-      background: url('https://picsum.photos/1000/1500?image=827') #fff;
+      /* background: url('') #fff; */
       background-repeat: no-repeat;
       background-position: top center;
       background-size: cover;
       margin: 5% auto 0px;
+      /* border: 2px solid salmon; */
 }
 
 
@@ -138,7 +226,7 @@ form {
 
 .panel-switch {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 70px;
 }
 
 .panel-switch button {
@@ -179,12 +267,13 @@ form h1 {
       text-transform: uppercase;
       font-weight: 600;
       letter-spacing: 4px;
-      margin: 50px 0;
+      margin: 30px 0;
       font-size: 1.7em;
 }
 
 fieldset {
       border: none;
+      margin-left: 50px;
 }
 
 .animate1,
@@ -251,7 +340,7 @@ fieldset {
 }
 
 fieldset input {
-      background: rgba(255, 255, 255, 0.2);
+      background: #ffff;
       border: none;
       border-radius: 5em;
       height: 20px;
@@ -259,9 +348,10 @@ fieldset input {
       margin: 10px 0;
       padding: 5px;
       text-indent: 10px;
-      color: #fff;
+      /* color: #fff; */
       font-weight: 600;
 }
+
 
 fieldset input::placeholder {
       color: #c7c6c6;
@@ -391,12 +481,17 @@ export default {
                   email: '',
                   matkhau: '',
                   diachi: '',
-                  gioitinh: '',
+                  gioitinh: 'Nam',
                   sdt: '',
                   vaitro: 'user',
                   email1: '',
                   matkhau1: '',
-                  isAlertVisible: false
+                  isAlertVisible: false,
+                  nhaplaimatkhau: '',
+                  hienThiMatKhau: false,
+                  user: [],
+                  thongbaodangnhap: false,
+                  thongbaodangky: false
             }
       },
       mounted() {
@@ -411,6 +506,9 @@ export default {
             // }
       },
       methods: {
+            kiemTraMatKhauHopLe() {
+                  return this.matkhau === this.nhaplaimatkhau;
+            },
             dangky() {
 
                   axios.post('http://localhost:3000/api/taikhoan/', {
@@ -425,11 +523,14 @@ export default {
                         .then((response) => {
                               this.taikhoan = response.data
                               console.log('taikhoan', this.taikhoan)
+                              this.thongbaodangky = true;
+                              this.$router.push({ name: 'login' });
                         })
                         .catch((error) => {
                               console.log(error);
                         });
-                  this.$router.push({ name: 'login' });
+                  // this.thongbaodangky = true;
+
             },
             login() {
                   console.log(this.email1, this.matkhau1)
@@ -440,18 +541,23 @@ export default {
                         .then((response) => {
                               if (response.data.message == 'Login successful') {
                                     console.log(response.data.token)
-                                    var token = (response.data.token)
+                                    var token = ('token', response.data.token)
+                                    this.user = response.data.user
                                     localStorage.setItem('token', token)
+                                    console.log('user', this.user)
+                                    this.thongbaodangnhap = true;
                                     this.$router.push({ name: 'trangchu' });
                               }
                               this.taikhoan = response.data
                               console.log('taikhoan', this.taikhoan)
+
                         })
                         .catch((error) => {
                               console.log(error);
                               this.isAlertVisible = true;
                         });
                   console.log(this.email1, this.matkhau1)
+
             }
       }
 }

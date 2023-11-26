@@ -4,8 +4,9 @@
             <div>
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
                         <ol class="carousel-indicators">
-                              <li v-for="(tt, index) in tinh" :key="index" data-target="#carouselExampleIndicators"
-                                    :data-slide-to="index" @click="selectImage(index)"
+                              <li style="background-color: #0dcaf0;" v-for="(tt, index) in tinh" :key="index"
+                                    data-target="#carouselExampleIndicators" :data-slide-to="index"
+                                    @click="selectImage(index)"
                                     :class="{ 'active mauli': index === selectedImageIndex, 'mauli': index !== selectedImageIndex }">
                               </li>
                         </ol>

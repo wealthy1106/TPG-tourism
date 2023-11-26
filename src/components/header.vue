@@ -77,12 +77,12 @@
                                     class="btn btn-primary rounded-pill py-2 px-4">
                                     Đăng ký
                               </router-link>
-                              <div class="nav-item dropdown" v-if="hienlen">
-                                    <button class="nav-link dropdown-toggle btn btn-primary rounded-pill py-2 px-4"
-                                          data-bs-toggle="dropdown">
+                              <div class="dropdown" v-if="hienlen">
+                                    <button class="btn btn-primary dropdown-toggle rounded-pill py-2 px-4" type="button"
+                                          data-toggle="dropdown" aria-expanded="false">
                                           Min
                                     </button>
-                                    <div class="dropdown-menu m-0">
+                                    <div class="dropdown-menu">
                                           <router-link to="/canhan" class="btn rounded-pill py-2 px-4 dropdown-item">
                                                 Trang cá nhân
                                           </router-link>
@@ -91,7 +91,6 @@
                                           </button>
                                     </div>
                               </div>
-
 
                         </div>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -131,34 +130,12 @@ export default {
 
       },
       mounted() {
-            // Mã JavaScript 1
-            // var chatbox = document.getElementById('fb-customer-chat');
-            // chatbox.setAttribute('page_id', '127163283823737');
-            // chatbox.setAttribute('attribution', 'biz_inbox');
-
-            // Mã JavaScript 2
-            // window.fbAsyncInit = function () {
-            //       FB.init({
-            //             xfbml: true,
-            //             version: 'v18.0',
-            //       });
-            // };
-
-            // (function (d, s, id) {
-            //       var js, fjs = d.getElementsByTagName(s)[0];
-            //       if (d.getElementById(id)) return;
-            //       js = d.createElement(s);
-            //       js.id = id;
-            //       js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-            //       fjs.parentNode.insertBefore(js, fjs);
-            // })(document, 'script', 'facebook-jssdk');
-
             this.token = localStorage.getItem('token')
             if (this.token != null) {
                   this.hienlen = true
                   this.hienlai = false
-                  this.hienlen = false
-                  this.hienlai = true
+                  // this.hienlen = false
+                  // this.hienlai = true
             } else {
                   this.hienlen = false
                   this.hienlai = true

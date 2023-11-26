@@ -80,8 +80,8 @@
                               </form>
                         </div>
                   </div>
-                  <div class="" data-wow-delay="0.3s" :key="index" v-for="(tt, index) in lienhe ">
-                        <iframe :src="tt.map" width="800" height="600" style="border:0;" loading="lazy"
+                  <div class="container" data-wow-delay="0.3s" :key="index" v-for="(tt, index) in lienhe ">
+                        <iframe :src="tt.map" width="1100" height="600" style="border:0;" loading="lazy"
                               referrerpolicy="no-referrer-when-downgrade"></iframe>
                   </div>
             </div>
