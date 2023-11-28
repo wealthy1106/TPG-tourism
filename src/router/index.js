@@ -28,6 +28,11 @@ const routes = [
             component: () => import("@/components/canhan/user.vue"),
       },
       {
+            path: "/canhan/chitietTour",
+            name: "CTT",
+            component: () => import("@/components/canhan/chitietTour.vue"),
+      },
+      {
             path: "/sukien",
             name: "sukien",
             component: () => import("@/components/sukien.vue"),

@@ -7,7 +7,7 @@
                   <p>Bạn đã đăng nhập thành công.</p>
             </div>
             <div class="success-message" v-if="thongbaodangky"
-                  style="z-index: 2;width: 600px;text-align: center;margin: 0px auto;top: 50%;height: 20%;padding: 60px;">
+                  style="z-index: 2;width: 600px;text-align: center;margin: 300px 100px;top: 50%;height: 20%;padding: 60px;">
                   <p>Bạn đã đăng ký thành công.</p>
             </div>
             <div class="panel shadow1" style="z-index: 1;">
@@ -524,7 +524,8 @@ export default {
                               this.taikhoan = response.data
                               console.log('taikhoan', this.taikhoan)
                               this.thongbaodangky = true;
-                              this.$router.push({ name: 'login' });
+                              // this.$router.push({ name: 'login' });
+                              window.location.reload();
                         })
                         .catch((error) => {
                               console.log(error);
@@ -544,8 +545,9 @@ export default {
                                     var token = ('token', response.data.token)
                                     this.user = response.data.user
                                     localStorage.setItem('token', token)
-                                    console.log('user', this.user)
-                                    this.thongbaodangnhap = true;
+                                    localStorage.setItem('user', this.user)
+                                    console.log('user', localStorage.setItem('user', this.user.id))
+                                    // this.thongbaodangnhap = true;
                                     this.$router.push({ name: 'trangchu' });
                               }
                               this.taikhoan = response.data

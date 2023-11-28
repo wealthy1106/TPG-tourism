@@ -309,6 +309,9 @@ export default {
             // }
       },
       mounted() {
+            if (localStorage.getItem('user') == null) {
+                  window.location.href = '/login';
+            }
             var urlid = this.$route.params.id
             // var urltenKM = this.$route.params.tenKM
             axios.get('http://localhost:3000/api/thanhtoan/all/' + urlid)

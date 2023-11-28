@@ -1,76 +1,462 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Itinerary</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
+-- drop database dulich;
+create database dulich;
+use dulich;
+create table lienhe(
+	idLH int auto_increment primary key,
+	diachiLH varchar(2550),
+    emailLH varchar(255),
+    sdtLH varchar(10),
+    map varchar(65535)
+);
 
-    .itinerary-container {
-      max-width: 800px;
-      margin: 20px auto;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
+create table tinnhan(
+	idTN int auto_increment primary key,
+    tinnhanTN varchar(65535),
+    hotenTN varchar(2550),
+    diachiTN varchar(2550),
+    emailTN varchar(255)
+);
 
-    .day {
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px;
-      font-size: 18px;
-      font-weight: bold;
-    }
+create table taikhoan(
+	idTK int auto_increment primary key,
+    hoten varchar(255),
+    diachi varchar(2550),
+    email varchar(255),
+    sdt varchar(10),
+    matkhau varchar(255),
+    vaitro varchar(255)
+);
 
-    .event {
-      padding: 15px;
-      border-bottom: 1px solid #ddd;
-    }
+create table tour(
+	idT int auto_increment primary key,
+    tenT varchar(2550),
+    chitietT varchar(65535),
+    loaiT varchar(255),
+    songay varchar(255),
+    sodem varchar(255),
+--     noikhoihanh varchar(2550),
+    giaT int ,
+    trainghiem varchar(65535),
+-- 	tgian varchar(255),
+    hinhT varchar(65535)
+);
+-- alter table tour add songay varchar(255);
+-- alter table tour add sodem varchar(255);
+-- alter table tour drop noikhoihanh;
+-- drop table tour;
 
-    .event h3 {
-      margin-top: 0;
-      margin-bottom: 5px;
-      color: #333;
-    }
+create table vetour(
+	idV int auto_increment primary key,
+    nguoilon int,
+    tred3 int,
+    tre10 int,
+    idT int,
+    constraint foreign key (idT) references tour(idT),
+    soluong int
+);
+-- alter table vetour add soluong int;
+-- alter table vetour drop slL;
+-- alter table vetour drop slN;
 
-    .event p {
-      margin: 0;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
+create table lichtrinh(
+	idLT int auto_increment primary key,
+    ngaykhoihanh varchar(2550),
+    noikhoihanh varchar(2550),
+    idT int,
+    constraint foreign key (idT) references tour(idT)
+);
+-- alter table lichtrinh drop ngayend;
 
-  <div class="itinerary-container">
-    <div class="day">Day 1: City Tour</div>
-    <div class="event">
-      <h3>Morning</h3>
-      <p>Visit historical landmarks and museums.</p>
-    </div>
-    <div class="event">
-      <h3>Afternoon</h3>
-      <p>Enjoy local cuisine at popular restaurants.</p>
-    </div>
-    
-    <!-- Repeat the structure for other days and events -->
+create table tinhthanh(
+	idTinh int auto_increment primary key,
+    tenTinh varchar(2550)
+);
+select * from diadanh;
+create table diadanh(
+	idDD int auto_increment primary key,
+    idTinh int,
+    tenDD varchar(2550),
+    motaDD varchar(65535),
+    mienDD varchar(255),
+    hinh1 varchar(65535),
+    -- tinhDD varchar(2550),
+    CONSTRAINT FOREIGN KEY (idTinh) REFERENCES tinhthanh(idTinh)
+);
+-- drop table diadanh;
+alter table diadanh drop tinhDD;
+alter table diadanh add idTinh int;
+alter table diadanh add CONSTRAINT FOREIGN KEY (idTinh) REFERENCES tinhthanh(idTinh);
+select tinhDD from diadanh group by tinhDD;
+select * from tinhthanh;
 
-    <div class="day">Day 2: Nature Excursion</div>
-    <div class="event">
-      <h3>Morning</h3>
-      <p>Explore the beautiful landscapes and hiking trails.</p>
-    </div>
-    <div class="event">
-      <h3>Afternoon</h3>
-      <p>Relax by the beach or go on a boat tour.</p>
-    </div>
-  </div>
 
-</body>
-</html>
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('An Giang');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Bạc Liêu');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Hà Giang');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Hà Nội');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Hồ Chí Minh');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Phú Yên');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Quảng Bình');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Quy Nhơn');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('SaPa');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Sóc Trăng');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Tà Đùng');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Tây Ninh');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Đà Lạt');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Đồng Nai');
+INSERT INTO `dulich`.`tinhthanh` (`tenTinh`) VALUES ('Đồng Tháp');
+
+
+create table lehoi(
+	idLH int auto_increment primary key,
+    tenLH varchar(2550), 
+    hinhLH varchar(65535),
+    ngayLH date,
+    motaLH varchar(65535),
+    idTinh int,
+    CONSTRAINT FOREIGN KEY (idTinh) REFERENCES tinhthanh(idTinh)
+);
+-- drop table lehoi;
+-- alter table lehoi add ngayLH date;
+
+create table dattour(
+	idDT int auto_increment primary key,
+    idT int,
+    idTK int,
+    giaL int,
+    giaN int,
+    slL int,
+    slN int,
+--     soluongDT int,
+	ngayDT TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    trangthai varchar(600),
+    hotenLL varchar(2550),
+    emailLL varchar(2550),
+    sdtLL varchar(10),
+    diachiLL varchar(65535),
+    ngaykhoihanh date,
+    constraint foreign key (idT) references tour(idT),
+    constraint foreign key (idTK) references taikhoan(idTK)
+);
+
+-- alter table nkht add noikhoihanh varchar(2550);
+-- alter table nkht add ngayend date;
+-- alter table dattour add constraint foreign key (idTK) references taikhoan(idTK);
+-- alter table dattour drop loaiV ;
+-- alter table dattour drop soluongDT;
+
+create table thanhtoan(
+	idTT int auto_increment primary key,
+    idDT int,
+    phuongthuc varchar(2550),
+    ngaythanhtoan TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    tongcong int,
+    trangthai varchar(2550),
+    constraint foreign key (idDT) references dattour(idDT)
+);
+
+
+create table Tour_diadanh(
+	idTDD int auto_increment primary key,
+	idT int,
+    idDD int,
+   --  buoisang varchar(65535),
+--     buoitrua varchar(65535),
+--     buoichieu varchar(65535),
+    CONSTRAINT FOREIGN KEY (idT) REFERENCES Tour(idT),
+    CONSTRAINT FOREIGN KEY (idDD) REFERENCES diadanh(idDD),
+    tieude varchar(2550),
+    text varchar(65535)
+);
+-- alter table tour_diadanh add text varchar(65535);
+
+create table khuyenmai(
+	idKM int auto_increment primary key,
+    tenKM varchar(2550),
+    phantram varchar(2550),
+    idT int,
+    constraint foreign key (idT) references tour(idT)
+);
+
+create table NKHT(
+	id int auto_increment primary key,
+    ngaykhoihanh date,
+    idT int,
+	ngayend date,
+    noikhoihanh varchar(2550),
+    constraint foreign key (idT) references tour(idT)
+);
+
+create table TTHK(
+	idHK int auto_increment primary key,
+    hotenHK varchar(2550),
+    sdt varchar(10),
+    namsinh varchar(4),
+    idT int,
+    constraint foreign key (idT) references tour(idT),
+    ngaykhoihanh date
+);
+-- alter table tthk add ngaykhoihanh date;
+
+create table tourNB(
+	idTNB int auto_increment primary key,
+    idT int,
+    constraint foreign key (idT) references tour(idT)
+);
+
+create table diemdenNB(
+	idDDNB int auto_increment primary key,
+    idDD int,
+    constraint foreign key (idDD) references diadanh(idDD)
+);
+
+
+------------------------------------------------
+
+select * from taikhoan;
+INSERT INTO `dulich`.`taikhoan` (`hoten`, `diachi`, `email`, `matkhau`, `vaitro`) VALUES ('Min', 'VINH LONG', 'min@gmail.com', '12345', 'user');
+
+select * from diadanh;
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('NÚI BÀ ĐEN', 'Tây Ninh, một địa điểm thuộc khu vực Nam Bộ mà không nổi tiếng về du lịch nhưng lại sở hữu những địa điểm tham quan đẹp và đáng trải nghiệm đến bất ngờ. Không chỉ được biết tới với núi Bà Đen hay tòa thánh Cao Đài, du lịch Tây Ninh vẫn hấp dẫn với những núi, hồ, chùa cùng những khung cảnh thiên nhiên quyến rũ du khách. Cùng iVIVU khám phá địa điểm này ngay hôm nay!', 'Miền Nam', 'https://cdn2.ivivu.com/2019/06/04/10/ivivu-nui-ba-den-220812.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Tòa Thánh Tây Ninh ', ' Tòa Thánh Tây Ninh được xem là một trong những công trình kiến trúc tôn giáo vĩ đại nhất của Đạo Cao Đài. Đây cũng là một trong những điểm du lịch thu hút đông đảo du khách tham quan tại Tây Ninh.', 'Miền Nam', 'https://cdn2.ivivu.com/2020/10/13/15/ivivu-toa-thanh-cao-dai1.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES (' Chùa Trấn Quốc', 'Ngôi chùa Trấn Bắc cổ kính nhất Việt Nam với 1.500 năm tuổi nằm trên bán đảo cồn Quy linh thiêng, với truyền thuyết và huyền thoại về Hồ Tây, hồ Trúc Bạch.', 'Miền Bắc', 'https://cdn2.ivivu.com/2019/12/27/13/ivivu-chua-tran-quoc.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Km0', 'Điểm giao nhau của QL2, QL34 và QL4C hay còn gọi là Con đường hạnh phúc.', 'Miền Bắc', 'https://cdn2.ivivu.com/2022/07/08/16/ivivu-cot-km0.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Cổng Trời Quản Bạ', ' Nơi được xem là Đà Lạt ở phía bắc, thênh thang trong tầm mắt là thiên nhiên nơi đây phong cảnh hữu tình. Bạn sẽ nhận thấy đó là một cuộc sống bình yên, giản dị giữa núi rừng thiên nhiên không có ồn ào tấp nập, khói bụi của thành thị. Cổng trời có một vị trí vô cùng thuận lợi, phía trước mặt là hình ảnh núi đôi Cô Tiên mờ ảo trong sương mù và những tia nắng đón chào ngày mới. Đứng ở trên đỉnh ngắm cảnh mây núi sương mù hòa quyện lại với nhau tạo nên một khung cảnh như chốn bồng lai tiên cảnh. Có thể nói đây là một địa điểm tuyệt vời để bạn có thể chiêm ngưỡng toàn bộ bức tranh thiên nhiên hùng vĩ.', 'Miền Bắc', 'https://cdn2.ivivu.com/2022/07/15/11/ivivu-nui-doi-co-tien.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Dinh Vua Mèo Vương Chí Sình', 'nằm trong một thung lũng của xã Sà Phìn, đây là dòng họ giàu có và quyền uy nhất Châu Đồng Văn vào đầu thế kỷ 20. ', 'Miền Bắc', 'https://cdn2.ivivu.com/2019/12/20/16/ivivu-dinh-thu-vua-meo.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Cột Cờ Lũng Cú ', 'Thăm Cột Cờ Lũng Cú - nơi địa đầu Tổ quốc, điểm cực bắc và là nóc nhà của Việt Nam –“Nơi mà cúi mặt sát đất, ngẩng mặt đụng trời\". Quý khách thăm quan Cột cờ Tổ Quốc và chụp hình lưu niệm. Từ cột cờ Lũng Cú, Quý khách có thể ngắm phong cảnh ruộng bậc thang đẹp mắt xen kẽ những nhà trình tường của dân tộc Lô Lô trong bản Séo Lủng bên dưới.', 'Miền Bắc', 'https://cdn2.ivivu.com/2019/12/20/16/ivivu-cot-co-lung-cu.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Chinh phục đèo Mã Pì Lèng', 'một trong tứ đại đỉnh đèo của Việt Nam, trên đường đi Mèo Vạc và cũng là đoạn đẹp nhất trên con đường mang tên \"Đường Hạnh phúc\". Chụp hình với vẻ đẹp hùng vĩ của hẻm vực Mã Pì Lèng sâu 800m - nơi địa hình bị chia cắt sâu nhất của Việt Nam', 'Miền Bắc', 'https://cdn2.ivivu.com/2022/07/15/11/ivivu-deo-ma-pi-leng.gif', 'Hà Giang');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Sông Nho Quế', ' Du thuyền trên Sông Nho Quế Lên thuyền xuôi dòng Nho Quế đến với Hẻm Tu sản, là hẻm vực sâu nhất của Việt Nam nằm trên dòng sông Nho Quế. Dòng Nho Quế chảy vào Việt Nam từ địa phận thôn Xéo Lủng, xã Lũng Cú, huyện Đồng Văn đi qua Hẻm núi Tu Sản chạy men theo chân đèo Mã Pì Lèng (chưa bao gồm combo xe máy đưa quý khách xuống thuyền + thuyền: giá tham khảo 250.000đ/khách).', 'Miền Bắc', 'https://cdn2.ivivu.com/2022/06/23/14/ivivu-song-nho-que.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Phố Cáo', 'Tham quan Phố Cáo với những ngôi nhà đặc trưng của người H\'mông bởi những hàng rào đá cung quanh nhà.', 'Miền Bắc', 'https://cdn2.ivivu.com/2022/07/15/11/ivivu-pho-cao.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES (' Fansipan', 'Cáp treo 3 dây dài nhất thế giới với chiều dài 6.292,5m. Quý khách sẽ được ngắm nhìn biển  mây, thung lũng Mường Hoa và dãy Hoàng Liên Sơn tuyệt đẹp từ trên cao.', 'Miền Bắc', 'https://cdn2.ivivu.com/2022/08/05/10/ivivu-fansipan-sapa.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Cát Cát', 'nơi sinh sống của người H’mong đen, một nơi phong cảnh hữu tình tại thung lũng nằm dưới chân đỉnh Phanxipang hùng vĩ. HDV địa phương sẽ giới thiệu cho quý khách cuộc sống thường ngày của người dân tộc nơi đây, sau đó quý khách tiếp tục đi bộ đến thác nước Cát Cát, trạm thủy điện Cát Cát của người Pháp xây dựng từ những năm đầu thế kỉ XX. Quý khách vui chơi chụp hình lưu niệm.', 'Miền Bắc', 'https://cdn2.ivivu.com/2022/10/17/14/ivivu-cat-cat.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Moana Sapa View', 'Moana Sapa View ôm trọn dãy Hoàng Liên Sơn, các góc check in đẹp, độc và mới mẻ, điểm đến này còn được yêu thích vì sở hữu view hướng thẳng ra dãy núi Hoàng Liên Sơn và đỉnh núi Fanxipan. Đến đây, bạn vừa được chụp hình thỏa thích, vừa được ngắm bức tranh lãng đãng mây trời đầy huyền ảo của Sapa. ', 'Miền Bắc', 'https://cdn2.ivivu.com/2022/10/17/09/ivivu-moana-sapa.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Miếu Bà Chúa Xứ', 'Miếu Bà Chúa Xứ nổi tiếng hiển linh', 'Miền Nam', 'https://cdn2.ivivu.com/2022/11/15/09/ivivu-mieu-ba-chua-xu.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Miếu Bà Chúa Xứ Bàu Mướp ', 'Miếu Bà Chúa Xứ Bàu Mướp được hình thành trong thời điểm Phật thầy Tây An Đoàn Minh Huyên dẫn dắt tín đồ khai hoang, lập ấp vùng đất Thới Sơn vào giữa thế kỉ XIX. Trước miễu lúc ấy là một bàu nước ngọt, thiên nhiên rất lớn, quanh năm không bao giờ cạn, trên mặt Bàu là những giây mướp rừng chằng chịt, từ đó dân gian quen gọi là Miếu Bà Chúa Xứ Bàu Mướp. Nhiều du khách đến tham quan hồ Bàu Mướp đều nhận xét không khí bình yên và thoáng mát ở đây khiến họ cảm thấy vô cùng thư giản và dễ chịu.', 'Miền Nam', 'https://cdn2.ivivu.com/2023/02/07/09/ivivu-mieu-ba-chua-xu-bau-muop.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Núi Cấm', 'Đến Núi Cấm, đoàn chinh phục Núi Cấm với cáp treo hiện đại, viếng Chùa Vạn Linh, Chùa Phật Lớn, nơi có tượng phật Di Lạc cao 32m. (Quý khách tự túc cáp treo).Ngắm cảnh hồ Thủy Liêm, hoặc du khách có thể thuê xe chở đến tham quan các điểm như Vồ Thiên Tuế, động Thủy Liêm, vồ Bồ Hông, suối Thanh Long, di tích vua Gia Long, điện 13 tầng, hang Bác vật lang, hang Ông Thẻ hang Ông Hổ, điện Rau Tần…', 'Miền Nam', 'https://cdn2.ivivu.com/2020/05/18/14/ivivu-kdl-nui-cam.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Vịnh Hạ Long Tây Nguyên', ' Khu bảo tồn sinh quyển Tà Đùng, gồm 47 ốc đảo lớn nhỏ với diện tích 22.103 ha, trong đó 86,7% là diện tích rừng xanh bạt ngàn.Hồ Tà Đùng như mặt gương xanh biếc nổi bật giữa núi rừng Tây Nguyên hoang sơ khiến biết bao du khách đắm say khi đặt chân đến.', 'Miền Trung', 'https://cdn2.ivivu.com/2018/12/31/16/ivivu-ta-dung-1.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('KDL Tà Đùng ', 'KDL Tà Đùng với nhiều điểm check in thú vị và hấp dẫn. Đặc biệt có cơ hội thỏa sức chinh phục “Cầu kính duy nhất tại Tây Nguyên”. Tại đây, du khách có thể cảm nhận được vẻ đẹp hoang sơ tựa bức tranh thiên nhiên tuyệt đẹp ẩn mình dưới ngọn đồi cao su bạt ngàn, cà phê nặng trĩu hạt', 'Miền Trung', 'https://cdn2.ivivu.com/2018/12/31/16/ivivu-ta-dung-1.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Buôn Đôn-Thanh Hà', 'Buôn Đôn-Thanh Hà, quý khách sẽ được giới thiệu chu đáo về cả văn hóa, phong tục tập quán địa phương, chế độ Mẫu hệ độc đáo qua khu nhà Dài Ê đê dài nhất Tây Nguyên, khu mộ Voi Pak Ku – H’Panh, khu tưởng niệm Vua săn voi.', 'Miền Trung', 'https://cdn2.ivivu.com/2019/06/20/16/ivivu-khu-du-lich-buon-don.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Thác Dray Nur', 'Đây là một trong những dòng thác hùng vỹ và gắn liền với nhiều huyền thoại nhất Tây Nguyên.', 'Miền Trung', 'https://cdn2.ivivu.com/2018/03/22/17/ivivu-thac-dray-nur.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Quần thể núi đá Ba Chồng', 'Quần thể núi đá Ba Chồng, cả đoàn trekking 1km đến núi đá Đĩa. Training thực hành đu dây Abseiling tại quần thể núi đá Ba Chồng ở độ cao 25m.', 'Miền Trung', 'https://cdn2.ivivu.com/2023/07/20/13/ivivu-nui-da-voi-rung-gia-canh.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Thác Mai', ' Khám phá Thác Mai hoang sơ nằm nép mình bên trong cánh Rừng Gia Canh.', 'Miền Trung', 'https://cdn2.ivivu.com/2023/07/20/13/ivivu-thac-mai-1.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Samten Hills', 'Đến KDL tâm linh Samten Hills Đà Lạt quý khách sẽ được khám phá một thế giới hoàn toàn mới, với một không gian vô cùng tĩnh lặng, nhưng không hề thiếu vắng bóng người. Đến đây, quý khách sẽ được trải nghiệm những phút giây thư giãn thật yên bình và tịnh tâm. Nơi đây sở hữu một công trình kiến trúc đồ sộ, mang nét kiến trúc của các vùng đất lành quanh dải Himalayas – Nóc nhà của thế giới, nơi được gọi là vùng đất linh thiêng của chốn tâm hồn ', 'Miền Trung', 'https://cdn2.ivivu.com/2023/03/29/13/ivivu-samten-hills-dalats.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('The Eco Tropicana Garden', 'The Eco Tropicana Garden là khu nghỉ dưỡng sinh thái cao cấp bậc nhất tọa lạc tại thôn 4 - xã B\'Lá - huyện Bảo Lâm, tỉnh Lâm Đồng. Đây là điểm dừng chân lý tưởng cho những chuyến du lịch, nghỉ dưỡng.', 'Miền Trung', 'https://cdn2.ivivu.com/2023/03/29/13/ivivu-the-eco-tropicana-garden.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('The Eco Tropicana Garden', 'The Eco Tropicana Garden được thiết kế sang trọng các villa riêng biệt mang đến sự riêng tư và bình yên trong tâm hồn cho chủ nhân của căn biệt thự, tách biệt hẳn với thế giới xô bồ bên ngoài.', 'Miền Trung', 'https://cdn2.ivivu.com/2023/03/29/13/ivivu-the-eco-tropicana-garden-1.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('KDL Dambri', 'Thỏa thích ngắm cảnh, chụp hình bên ngọn thác đẹp hùng vĩ mà cũng không kém phần nên thơ, huyền ảo.Dạo bộ hoặc đạp xe quanh hồ nước lớn tận hưởng không khí cực kì mát mẽ, thoáng đãng. Trải nghiệm xe trượt ống với đường trượt ấn tượng xuyên qua khu rừng mưa nhiệt đới, có điểm xuất phát cao nhất thế giới.Khu vui chơi giải trí bến thuyền với nhiều trò chơi hấp dẫn: Tàu lượn siêu tốc, lắc Bắt Giới, Hồ bơi trượt nước, sân patin,  xe đạp đôi, đạp thiên nga...', 'Miền Trung', 'https://cdn2.ivivu.com/2023/03/29/13/ivivu-thac-dambri-bao-loc.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Tu Viện Bát Nhã', 'Trên đường về quý khách tham quan Tu Viện Bát Nhã, một công trình có nét kiến trúc độc đáo mang màu sắc Á Đông với mái ngói 2 tầng cong vút cổ kính được kết hợp với không gian thiên nhiên làm cho công trình càng nổi bật giữa những rừng chè bạt ngàn, tạo nên cảnh quan đẹp, thơ mộng trong khuôn viên rộng 35 hecta.', 'Miền Trung', 'https://cdn2.ivivu.com/2023/03/29/13/ivivu-tu-vien-bat-nha-2.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Hang Over', 'Gần với cửa ra của Hang Over bạn sẽ thấy một một hố sụt khổng lồ kèm theo hệ thống thảm thực vật xanh tốt nằm trong lòng giữa Hang Over và Hang Pygmy. Sau khi vượt qua 300m đoạn hố sụt ngắn này, bạn sẽ đến không gian lớn phía trong Hang Pygmy.Sau khi vượt qua 300m đoạn hố sụt ngắn này, bạn sẽ đến không gian lớn phía trong Hang Pygmy.Tới Hang Pygmy, chuẩn bị lều trại và bữa tối với những món ăn Việt Nam truyền thống, giao lưu, trò chuyện và chơi một số trò chơi.', 'Miền Trung', 'https://cdn2.ivivu.com/2020/10/05/11/ivivu-hang-over.gif', 'Quảng Bình');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Hang Pygmy', 'Hang Pygmy là một trong những hang động lớn và nguyên sơ bậc nhất giữa vườn Quốc gia Phong Nha – Kẻ Bàng. Hang động này còn có tên là hang Én Rục – Cà Ròong, được hiệp hội Hang động Hoàng Gia Anh (British Caving Association) công nhận là hang động lớn thứ 4 thế giới nằm tại Việt Nam. Hành trình khám phá hang Pygmy Phong Nha Kẻ Bàng sẽ mất gần 20km với chuyến đi bộ trekking cực kỳ thú vị.', 'Miền Trung', 'https://cdn2.ivivu.com/2020/10/05/11/ivivu-hang-pygmy1.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Khu du lịch Ghềnh Ráng', 'Quý khách được dạo bước trên dốc Mộng Cầm, đồi Thi Nhân, bãi tắm Hoàng Hậu, Tiên Sa, và sống lại với những vần thơ Hàn Mặc Tử cùng tài nghệ của bút lửa Dzũ Kha.', 'Miền Trung', 'https://cdn2.ivivu.com/2018/05/25/16/ivivu-khu-du-lich-ghenh-rang.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Tháp Đôi', 'Tháp Đôi, là cụm 02 ngọn tháp Chăm được xây dựng duyên dáng bên cạnh nhau.', 'Miền Trung', 'https://cdn2.ivivu.com/2019/12/10/16/ivivu-thap-doi1.gif', 'Phú Yên');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Tượng đài Nguyễn Sinh Sắc – Nguyễn Tất Thành', ' Tượng đài Nguyễn Sinh Sắc – Nguyễn Tất Thành, được xây dựng sừng sững giữa lòng Quy Nhơn như một tượng đài vững chắc thể hiện tình cha con hòa quyện với tinh thần yêu nước.', 'Miền Trung', 'https://cdn2.ivivu.com/2019/12/11/11/ivivu-tuong-dai-nguyen-sinh-sac.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Nhà thờ Mằng Lăng', 'Nhà thờ Mằng Lăng, được thiết kế theo lối kiến trúc Gothic với các họa tiết tinh xảo, một khám phá mới mẻ ở đây là hang thánh đường trong lòng quả đồi nhân tạo, cũng là nơi lưu giữ Cuốn sách có in chữ Quốc ngữ đầu tiên của nước ta.', 'Miền Trung', 'https://cdn2.ivivu.com/2018/10/10/16/ivivu-nha-tho-mang-lang.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Ghềnh Đá Đĩa', 'Ghềnh Đá Đĩa, một thắng cảnh thiên nhiên cấp quốc gia đầy kỳ thú, trông xa như một tổ ong đen bóng hay là những chồng đĩa trong lò gạch dưới bàn tay sắp đặt của tạo hóa.', 'Miền Trung', 'https://cdn2.ivivu.com/2017/03/17/16/ivivu-ghenh-da-dia-16.jpg');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Bãi Xép – Ghềnh Ông', ' Bãi Xép – Ghềnh Ông, hình ảnh quen thuộc từ Bộ phim Tôi thấy hoa vàng trên cỏ xanh, ấn tượng phải kể đến là bãi cỏ rộng mênh mông của Ghềnh Ông phía bên trên một bãi Xép sóng vỗ hiền hòa.', 'Miền Trung', 'https://cdn2.ivivu.com/2022/10/17/16/ivivu-bai-xep.gif');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Eo Gió', 'Eo Gió: một bãi biển hoang sơ dưới sự bào mòn của nước và gió, tạo nên một eo biển tuyệt đẹp, quanh năm lộng gió.', 'Miền Trung', 'https://cdn2.ivivu.com/2022/10/17/17/ivivu-eo-gio.gif');
+UPDATE `dulich`.`diadanh` SET `tinhDD` = 'Quy Nhơn' WHERE (`idDD` = '30');
+UPDATE `dulich`.`diadanh` SET `tinhDD` = 'Quy Nhơn' WHERE (`idDD` = '31');
+UPDATE `dulich`.`diadanh` SET `tinhDD` = 'Quy Nhơn' WHERE (`idDD` = '32');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Địa Đạo Củ Chi ', 'Trước kia địa đạo ở Củ Chi là căn cứ kháng chiến, hệ thống phòng thủ kiên cố nằm sâu trong lòng đất của dân tộc ta trong thời kỳ chiến tranh Đông Dương và chiến tranh Việt Nam. Được mệnh danh là “thành phố trong lòng đất” địa đạo Củ Chi không chỉ có hệ thống đường hầm như mê cung mà còn có rất nhiều phòng, bệnh xá, nhà bếp, kho chứa, phòng làm việc,… với hệ thống thông hơi ra các bụi cây trong rừng. Nơi đây là điểm đến lý tưởng trong ngày cho những ai đã chán cảnh ồn ào xô bồ ở thành thị, muốn tìm hiểu chiến tích lịch sử hào hùng một thời của những anh hùng chống Mỹ cứu nước, cũng như cuộc sống của người dân miền đất Củ Chi lừng danh. Cùng iVIVU khám phá một thời lịch sử nước nhà ngay hôm nay!', 'Miền Nam', 'https://cdn2.ivivu.com/2016/08/26/13/ivivu-tour-sai-gon-1n-cu-chi-dia-dao-cu-chi.jpg', 'Hồ Chí Minh');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Làng Hoa Sa Đéc', 'Lịch sử làng hoa Sa Đéc đã hình thành từ những năm đầu thế kỷ 20, bấy giờ ở vùng Tân Quy Đông chỉ có vài hộ trồng hoa để trang trí dịp tết. Thấy hoa hợp đất nở đẹp, dần dần số hộ trồng hoa đã tăng lên và mục đích kinh doanh được xác định. Về sau lan rộng ra các vùng như rạch Sa Nhiên, phường An Hòa, xã Tân Khánh Đông, và phường 3 thuộc TP Sa Đéc. Đến nay, tổng diện tích trồng hoa là hơn 500 ha, với trên 2.300 hộ dân, 2.000 loài hoa kiểng khác nhau, trở thành một trong những vựa hoa kiểng lớn nhất vùng đồng bằng sông Cửu Long và miền Nam.', 'Miền Nam', 'https://thamhiemmekong.com/wp-content/uploads/2019/12/lang-hoa-sa-dec-1.jpg', 'Đồng Tháp');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Chùa Som Rong', 'Chùa Som Rong: ngôi chùa Khmer tuyệt đẹp ở Sóc Trăng.', 'Miền Nam', 'https://cdn2.ivivu.com/2019/09/20/10/ivivu-chua-som-rong.jpg', 'Sóc Trăng');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Chùa Chén Kiểu', 'Chùa Chén Kiểu: hay còn gọi là chùa Sà Lôn được biết đến là một trong số những ngôi chùa có phong cách kiến trúc “độc nhất vô nhị” để lại dấu ấn sâu đậm trong lòng du khách.', 'Miền Nam', 'https://cdn2.ivivu.com/2023/01/06/17/ivivu-chua-chen-kieu.gif', 'Sóc Trăng');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Nhà Công Tử Bạc Liêu', 'Nhà Công Tử Bạc Liêu: Công tử Bạc Liêu nổi tiếng nhất có tên thật là Trần Trinh Huy, ông còn có tên khác là Ba Huy vì ông là con trai thứ ba trong nhà. Là một trong những công tử ăn chơi khét tiếng ở miền Nam Việt Nam ở thập niên 30, 40 lúc bấy giờ.', 'Miền Nam', 'https://cdn2.ivivu.com/2021/05/24/17/ivivu-nha-cong-tu-bac-lieu.gif', 'Bạc Liêu');
+INSERT INTO `dulich`.`diadanh` (`tenDD`, `motaDD`, `mienDD`, `hinh1`) VALUES ('Cánh đồng điện gió Bạc Liêu', 'Cánh đồng điện gió Bạc Liêu: Ghé thăm cánh đồng điện gió Bạc Liêu, du khách chiêm ngưỡng được vẻ đẹp của những tua bin gió khổng lồ, dựng lên sừng sững trên nền trời xanh.', 'Miền Nam', 'https://cdn2.ivivu.com/2022/11/15/09/ivivu-canh-dong-quat-gio-bac-lieu-9.gif', 'Bạc Liêu');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '12' WHERE (`idDD` = '1');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '12' WHERE (`idDD` = '2');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '4' WHERE (`idDD` = '3');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '3' WHERE (`idDD` = '4');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '3' WHERE (`idDD` = '5');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '3' WHERE (`idDD` = '6');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '3' WHERE (`idDD` = '7');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '3' WHERE (`idDD` = '8');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '3' WHERE (`idDD` = '10');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '3' WHERE (`idDD` = '9');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '9' WHERE (`idDD` = '11');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '9' WHERE (`idDD` = '12');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '9' WHERE (`idDD` = '13');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '1' WHERE (`idDD` = '14');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '1' WHERE (`idDD` = '15');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '1' WHERE (`idDD` = '16');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '11' WHERE (`idDD` = '17');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '11' WHERE (`idDD` = '18');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '11' WHERE (`idDD` = '19');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '11' WHERE (`idDD` = '20');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '14' WHERE (`idDD` = '21');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '14' WHERE (`idDD` = '22');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '13' WHERE (`idDD` = '23');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '13' WHERE (`idDD` = '24');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '13' WHERE (`idDD` = '25');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '13' WHERE (`idDD` = '26');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '13' WHERE (`idDD` = '27');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '7' WHERE (`idDD` = '28');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '7' WHERE (`idDD` = '29');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '8' WHERE (`idDD` = '30');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '8' WHERE (`idDD` = '31');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '8' WHERE (`idDD` = '32');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '6' WHERE (`idDD` = '33');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '6' WHERE (`idDD` = '34');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '6' WHERE (`idDD` = '35');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '6' WHERE (`idDD` = '36');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '5' WHERE (`idDD` = '37');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '15' WHERE (`idDD` = '38');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '10' WHERE (`idDD` = '39');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '10' WHERE (`idDD` = '40');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '2' WHERE (`idDD` = '41');
+UPDATE `dulich`.`diadanh` SET `idTinh` = '2' WHERE (`idDD` = '42');
+
+select * from tour;
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Cao Cấp Tây Nguyên 3N3Đ: Tà Đùng - Buôn Mê Thuột - Thác Dray Nu', 'Tà Đùng là một khu bảo tồn có diện tích 22.103 ha, thuộc xã Đắc P’lao và xã Đắk Som, huyện Đắk Glong tỉnh Đắc Nông, cách thị xã Gia Nghĩa khoảng 45 km. Hồ Tà Đùng được dân du lịch hay ví von là vịnh Hạ Long của Tây Nguyên, với khung cảnh nên thơ, làm xao xuyến lòng người. Cùng TPG tourism khám phá tuyệt tác này ngay hôm nay!', 'Tham quan', '2300000', 'Tà Đùng: thu hút du khách nhờ mặt nước trong xanh, phẳng lặng điểm xuyết bởi vô số hòn đảo nhỏ nổi lên. Hồ Tà Đùng vốn là một vùng thung lũng bên núi Tà Đùng gồm 36 hòn đảo lớn nhỏ kỳ vỹ, là tuyệt tác của tạo hóa hoàn toàn tách biệt với thế giới bên ngoài.','https://cdn2.ivivu.com/2018/03/22/17/ivivu-thac-dray-nur.jpg');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Châu Đốc 1N1Đ: Viếng Bà - Miếu Bà Chúa Xứ Bàu Mướp - Núi Cấm', 'An Giang không chỉ thu hút khách tham quan bởi vẻ đẹp hoang sơ đầy mê hoặc mà ở đây còn có rất địa điểm du lịch hấp dẫn, trong đó phải kể đến vùng Bảy Núi hay Thất Sơn. Nổi bật trong dãy Thất Sơn là ngọn núi Cấm cao khoảng 710m so với mực nước biển trung bình. Núi Cấm còn gọi là Thiên Cấm Sơn, nằm ngay trung tâm của vùng Bảy núi chính vì thế núi Cấm có vẻ đẹp hoang sơ, hùng vĩ. Ngoài ra có khu du lịch Núi Sam ở thành phố Châu Đốc với nhiều thắng cảnh nổi danh, đặc biệt là Miếu Bà chúa Xứ nổi tiếng linh thiêng. Nếu như bạn đến Châu Đốc với mục đích hành hương - cầu may mắn thì những địa điểm không thể bỏ qua như: Miếu Bà, Chùa Tây An, Lăng Thoại Ngọc Hầu. …  ', 'Tham quan','690000', ' Chụp ảnh tại Miếu Bà Chúa Xứ Bàu Mướp - cái tên thân thuộc mà người dân đặt cho một trong những ngôi chùa nổi tiếng Châu Đốc – An Giang đó là chùa Phước Điền. Tham quan Chợ Tịnh Biên', 'https://cdn2.ivivu.com/2022/11/15/09/ivivu-mieu-ba-chua-xu.gif');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Hà Giang 4N3Đ: HCM - Hà Nội - Hà Giang - Hoa Tam Giác Mạch Lũng Cú - Đồng Văn - Sông Nho Quế', 'Nơi địa đầu của Tổ Quốc, Hà Giang được biết đến địa hình được sự ưu ái của thiên nhiên núi rừng hùng vĩ, hoang sơ, với dòng sông Nho Quế màu xanh ngọc bích thơ mộng, có cao nguyên đá Đồng Văn được UNESCO công nhận công viên địa chất toàn cầu, là vùng đất thủ phũ cánh đồng hoa tam giác mạch nổi tiếng, cánh đồng hoa cải, ... tạo một bức tranh đầy sắc màu cho vùng đất nơi đây, núi đôi Quản Bạ nằm giữa núi đá và ruộng bậc thang. Hà Giang nơi sinh sống đồng bào người dân tộc trong các bộ trang phục màu sắc rực rỡ, những truyền thống văn hoá lâu đời của cộng đồng dân cư bản địa và cả những sản vật địa phương đa dạng.  ', 'Tham quan', '7990000', 'Tận mắt ngắm nhìn đèo Mã Pì Lèng hùng vĩ và hẻm vực sông Nho Quế sâu nhất Việt Nam', 'https://cdn2.ivivu.com/2020/08/28/15/ivivu-song-nho-que-bia-750x390.gif');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Sapa 2N2Đ: Hà Nội - Sapa - Fansipan - Cát Cát - Moana View', 'Nằm phía Tây Bắc tổ quốc, Sa Pa ẩn chứa bao điều kỳ diệu của cảnh sắc thiên nhiên, con người. Thị trấn trong mây hấp dẫn du khách với quang cảnh núi non hùng vĩ cùng trải nghiệm độc đáo với cuộc sống của đồng bào dân tộc thiểu số. Tùy mỗi thời điểm trong năm, Sapa khoác lên mình một vẻ đẹp riêng. Hãy đến Sapa từ sắc trắng của mận, sắc hồng của anh đào, những dải ruộng bậc thang xanh mướt. Và  đặc sản của Sapa với khí hậu lạnh âm độ chẳng khác gì châu Âu vào tháng 10 - 12. Cùng iVIVU khám phá ngay hôm nay!', 'Tham quan', '2990000', 'Khí trời mát mẻ vùng núi và cảnh quan đẹp hoang sơ chính là những yếu tố giúp Sapa trở thành một khu nghỉ mát nổi tiếng ở miền Bắc Việt Nam, ', 'https://cdn2.ivivu.com/2022/08/05/10/ivivu-fansipan-sapa.gif');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Cao Cấp Tây Nguyên 3N3Đ: Tà Đùng - Buôn Mê Thuột - Thác Dray Nu', 'Tà Đùng là một khu bảo tồn có diện tích 22.103 ha, thuộc xã Đắc P’lao và xã Đắk Som, huyện Đắk Glong tỉnh Đắc Nông, cách thị xã Gia Nghĩa khoảng 45 km. Hồ Tà Đùng được dân du lịch hay ví von là vịnh Hạ Long của Tây Nguyên, với khung cảnh nên thơ, làm xao xuyến lòng người. Cùng iVIVU khám phá tuyệt tác này ngay hôm nay!', 'Tham quan', '2830000', 'Tà Đùng: thu hút du khách nhờ mặt nước trong xanh, phẳng lặng điểm xuyết bởi vô số hòn đảo nhỏ nổi lên. Hồ Tà Đùng vốn là một vùng thung lũng bên núi Tà Đùng gồm 36 hòn đảo lớn nhỏ kỳ vỹ, là tuyệt tác của tạo hóa hoàn toàn tách biệt với thế giới bên ngoài.', 'https://cdn2.ivivu.com/2018/12/31/16/ivivu-ta-dung-1.jpg');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Cao Cấp Đà Lạt 2N2Đ: Bảo Lộc - Làng Hàn Quốc The Eco Tropicana - Samten Hills - Thác Dambri', 'Đà Lạt là thành phố của muôn hoa. Dường như bao nhiêu sắc hoa đều hội tụ về thành phố này. Từ những loài hoa quen thuộc cho đến vô vàn những sắc hoa đến từ phương xa. Mẹ thiên nhiêu ưu ái dành tặng cho cao nguyên thổ nhưỡng thích hợp cho sự sinh trưởng của rất nhiều loại hoa cỏ. Chạm ngõ ngôi làng The Tropicana Garden, bạn  sẽ cảm nhận được sự gần gũi của thiên nhiên với không gian mở, đắm mình trong bản hòa tấu thiên nhiên với lá rừng xào xạc, tiếng chim hót véo von. Nhiều người vẫn xem Bảo Lộc là một điểm dừng chân hơn là một điểm đến. Nhưng hãy thử một lần quan sát thật chậm, bạn sẽ có những trải nghiệm thật khác biệt. Cùng iVIVU khám phá ngay hôm nay!', 'Tham quan', '2650000', ' Samten Hills – Thiên Đường Tâm Linh Bậc Nhất Đà Lạt', 'https://cdn2.ivivu.com/2023/03/29/13/ivivu-thac-dambri-bao-loc.gif');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Limousine Cao Cấp Phan Thiết 2N1Đ: Tà Kú - Bikini Beach - Circus Land', 'Xe Limousine hay được gọi là “Chuyên Cơ Mặt Đất” dòng xe hiện đại, tối ưu và sang trọng, được cải tiến từ những chiếc xe du lịch 40 chỗ thành những chiếc xe 20 chỗ sang trọng, xe du lịch 29 chỗ thành 18-20 chỗ. Xe Limousine được áp dụng phục vụ cho hành khách tuyến đường dài để đảm bảo sự nghỉ ngơi và thoải mái khi đi trên xe. Cả nội thất bên trong của các xe đều được lắp đặt các thiết bị hiện đại và tiện ích nhất cho các trải nghiệm của hành khách.', 'Tham quan', '2500000', 'Du Xuân Với Dịch Vụ Cao Cấp', 'https://cdn2.ivivu.com/2022/12/28/11/ivivu-cong-vien-circus-land.gif');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Cao Cấp Phan Thiết 2N1Đ: Mũi Né - Bikini Beach - Lâu Đài Rượu Vang', 'Nổi tiếng với những bờ cát trắng trải dài, biển xanh và những hàng dừa, là một mũi biển của thành phố Phan Thiết, Mũi Né nằm ở vị trí rất thuận lợi để phát triển du lịch, du khách có thể đến quanh năm, mỗi mùa sẽ mang một vẻ đẹp khác nhau, có nhiều KDL và thắng cảnh nổi tiếng, Bàu Trắng - Bàu Sen là hai hồ nước ngọt thiên nhiên nằm giữa những đồi cát trắng mênh mông, Làng Chài Mũi Né, Suối Tiên, Hòn Rơm...Phan Thiết còn nổi lên các khu resort rất đa dạng, từ bình dân đến cao cấp, và có ẩm thực đa dạng, thành phố này còn nổi tiếng với nhiều khu di tích lịch sử và nền văn hoá Chăm Pa giàu bản sắc, quý khách không thể bỏ lỡ điểm du lịch hấp dẫn này nha.', 'Tham quan', '1886000', 'Đồi Cát Bay tại đây đoàn có thể tham gia trò chơi cảm giác mạnh trên đồi cát bằng cách đi máng trượt', 'https://cdn2.ivivu.com/2022/06/14/15/ivivu-lang-chai-mui-ne-1.gif');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Abseiling Đồng Nai 2N1Đ: Trải Nghiệm Rừng Gia Canh - Núi Đá Bảy Mẫu', 'Phú Điền thì Rừng Gia Canh là một trong những hành trình được nhiều bạn tìm đến bởi cung đường có vẻ đẹp hoang sơ hiếm có, từ trải nghiệm trekking xuyên rừng nhiệt đới đến abseiling tại núi đá hang dơi hay tắm suối khoáng nóng tại bầu nước sôi... Rừng Gia Canh là thủ phủ của những núi đá tự nhiên. Những núi đá ở đâu đứng sừng sững, nằm ngổn ngang trong rừng, ‘trời ơi’ đầy sức mê hoặc. Núi đá Bảy Mẫu có độ cao khoảng 200m, là một nơi tuyệt vời cho hoạt động leo núi bằng thiết bị chuyên dụng và Abseiling trên đỉnh núi xuống hang dơi, một nơi bí ẩn nằm giữa rừng nguyên sinh. Cùng iVIVU khám phá ngay hôm nay ! ', 'Tham quan', '1886000', 'Thác Mai, một thác nước tự nhiên rất hoang sơ nằm nép mình bên rừng Gia Canh.', 'https://cdn2.ivivu.com/2023/07/20/13/ivivu-thac-mai-1.jpg');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`) VALUES ('Tour Miền Trung 3N2Đ: Quy Nhơn - Phú Yên', '\'Xứ Nẫu\' được thiên nhiên ban tặng phong cảnh nên thơ, hữu tình và những bãi biển trải dài tuyệt đẹp, Phú Yên - Bình Định trở thành điểm nổi bật cho chuyến du lịch hè đáng nhớ cho du khách mọi miền. Không chỉ mang nét duyên của thành phố ôm trọn hai ngọn núi, Phú Yên còn mê đắm lòng người ở những đầm nước trong vắt, những bãi biển bao la, ghềnh Đá Đĩa kỳ thú. Qua đến Quy Nhơn trải nghiệm những hành trình hấp dẫn như Kỳ Co nước trong xanh màu ngọc bích được mệnh danh là “Maldives của Việt Nam”, Eo Gió vừa lãng mạn vừa hùng vĩ để ngắm hoàng hôn. \'Xứ Nẫu\' nổi lên kiến trúc Champa Tháp Nhạn, Tháp Đôi độc đáo được xây dựng khoảng thế kỷ 12.', 'Tham quan', '1886000', 'Khu du lịch Ghềnh Ráng: Có sự kết hợp hài hòa giữa trời, mây, non nước, một bên là biển mênh mông, một bên là núi đá muôn hình vạn trạng. Từ Ghềnh Ráng, du khách có thể ngắm nhìn gần trọn hết vẻ đẹp đầy sức sống của phố biển Quy Nhơn.', 'https://cdn2.ivivu.com/2018/05/25/16/ivivu-khu-du-lich-ghenh-rang.jpg');
+UPDATE `dulich`.`tour` SET `songay` = '3', `sodem` = '3' WHERE (`idT` = '1');
+UPDATE `dulich`.`tour` SET `songay` = '1', `sodem` = '1' WHERE (`idT` = '2');
+UPDATE `dulich`.`tour` SET `songay` = '4', `sodem` = '3' WHERE (`idT` = '3');
+UPDATE `dulich`.`tour` SET `songay` = '2', `sodem` = '2' WHERE (`idT` = '4');
+UPDATE `dulich`.`tour` SET `songay` = '3', `sodem` = '3' WHERE (`idT` = '5');
+UPDATE `dulich`.`tour` SET `songay` = '2', `sodem` = '2' WHERE (`idT` = '6');
+UPDATE `dulich`.`tour` SET `songay` = '2', `sodem` = '1' WHERE (`idT` = '7');
+UPDATE `dulich`.`tour` SET `songay` = '2', `sodem` = '1' WHERE (`idT` = '8');
+UPDATE `dulich`.`tour` SET `songay` = '2', `sodem` = '1' WHERE (`idT` = '9');
+UPDATE `dulich`.`tour` SET `songay` = '2', `sodem` = '3' WHERE (`idT` = '10');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`, `songay`, `sodem`) VALUES ('Tour Thám Hiểm Phong Nha 2N1Đ: Khám Phá Hang Pygmy', 'Khám Phá Hang Pygmy (hang động lớn thứ 4 trên thế giới) là hành trình mới được đưa vào khai thác và được rất ít người chinh phục. Thực tế là số người từng đi qua 2 hang này còn ít hơn số người từng đứng trên đỉnh Everest. Chỉ mới được đưa vào khai thác du lịch đầu năm 2018, chuyến phiêu lưu đến với hang Pygmy - người em của hang Sơn Đòong sẽ là một trải nghiệm leo núi mang đến cho du khách cảm giác hoàn toàn chân thực. Cùng iVIVU khám phá ngay hôm nay! ', 'Thám hiểm', '7900000', 'Trải nghiệm các hoạt động phiêu lưu mạo hiểm nằm sâu trong rừng già, gần với vùng lõi của Vườn Quốc Gia Phong Nha – Kẻ Bàng.', 'https://cdn2.ivivu.com/2020/10/05/11/ivivu-hang-over.gif', '2', '1');
+INSERT INTO `dulich`.`tour` (`tenT`, `chitietT`, `loaiT`, `giaT`, `trainghiem`, `hinhT`, `songay`, `sodem`) VALUES ('Tour Miền Tây ', 'Tour du lịch lục tỉnh miền Tây 4 ngày 3 đêm khởi hành hàng tuần sẽ mang lại cho quý khách khám phá miền quê sông nước hữu tình. Đến với miền Tây với vùng đất cuối cùng của Việt Nam. Khám phá cảnh vật cùng con người hiền hòa nơi đây. Quý khách sẽ đi qua Lục tỉnh Nam Kỳ. Trải nghiệm miền quê sông nước trên các con sông Tiền, sông Hậu cảnh sinh hoạt buôn bán, họp chợ trên sông mà không một nơi nào có được. Quý khách đến với chúng tôi sẽ trải nghiệm hành trình lục tỉnh miềm Tây 4 ngày 3 đêm chuyến đi thú vị và nhiều kỷ niệm đáng nhớ!!!', 'Tham quan', '3800000', 'Trải nghiệm nét văn hóa mua bán trên sông đặc thù của người dân Nam Bộ tại chợ nổi Cái Răng – một trong những khu chợ lớn nhất Đồng Bằng sông Cửu Long.', 'https://cdn2.ivivu.com/2022/11/15/09/ivivu-canh-dong-quat-gio-bac-lieu-9.gif', '4', '3');
+
+
+select * from tour_diadanh;
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('9', '21', 'NGÀY 1: SÀI GÒN - NÚI ĐÁ ĐÁ BA CHỒNG - NÚI ĐÁ BẢY MÃU - RỪNG GIA CANH');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('9', '22', 'NGÀY 2: BÀU NƯỚC SÔI - THÁC MAI - SÀI GÒN');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('6', '23', 'NGÀY 1: BẢO LỘC – SAMTEN HILLS – THÁC DAMBRI – LÀNG HÀN QUỐC');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('6', '24', 'NGÀY 1: BẢO LỘC – SAMTEN HILLS – THÁC DAMBRI – LÀNG HÀN QUỐC');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('6', '25', ' BẢO LỘC – THÁC DAMBRI – TU VIỆN BÁT NHÃ – TP. HỒ CHÍ MINH');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('6', '26', ' BẢO LỘC – THÁC DAMBRI – TU VIỆN BÁT NHÃ – TP. HỒ CHÍ MINH');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('2', '14', 'SÁNG NGÀY 01: MIẾU BÀ CHÚA XỨ - NÚI CẤM - TP.HCM ');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('2', '15', 'SÁNG NGÀY 01: MIẾU BÀ CHÚA XỨ - NÚI CẤM - TP.HCM ');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('2', '16', 'SÁNG NGÀY 01: MIẾU BÀ CHÚA XỨ - NÚI CẤM - TP.HCM ');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('12', '38', 'NGÀY 1. TP. HCM - MỸ THO - BẾN TRE ');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('12', '39', 'NGÀY 2: CẦN THƠ - SÓC TRĂNG');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('12', '40', 'NGÀY 2: CẦN THƠ - SÓC TRĂNG');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('12', '41', 'NGÀY 3: SÓC TRĂNG - BẠC LIÊU');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('12', '42', 'NGÀY 3: SÓC TRĂNG - BẠC LIÊU');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `tieude`) VALUES ('1', 'ĐÊM NGÀY 1: TP. HỒ CHÍ MINH – TÀ ĐÙNG');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('1', '17', 'NGÀY 2: TÀ ĐÙNG - BUÔN MÊ THUỘT');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('1', '18', 'NGÀY 2: TÀ ĐÙNG - BUÔN MÊ THUỘT');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('1', '19', 'NGÀY 3: BUÔN MÊ THUỘT – BUÔN ĐÔN – BUÔN DÂN TỘC ÊĐÊ');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('1', '20', 'NGÀY 04: BUÔN MÊ THUỘT – THÁC DRAY NUR- TP.HCM ');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('3', '3', 'NGÀY 02: HÀ NỘI - QUẢN BẠ - YÊN MINH ');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('3', '4', 'NGÀY 02: HÀ NỘI - QUẢN BẠ - YÊN MINH ');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('3', '5', 'NGÀY 3: YÊN MINH – CỘT CỜ LŨNG CÚ – CAO NGUYÊN ĐÁ ĐỒNG VĂN - SÔNG NHO QUẾ - MÃ PÌ LÈNG');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('3', '6', 'NGÀY 3: YÊN MINH – CỘT CỜ LŨNG CÚ – CAO NGUYÊN ĐÁ ĐỒNG VĂN - SÔNG NHO QUẾ - MÃ PÌ LÈNG');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('3', '7', 'NGÀY 3: YÊN MINH – CỘT CỜ LŨNG CÚ – CAO NGUYÊN ĐÁ ĐỒNG VĂN - SÔNG NHO QUẾ - MÃ PÌ LÈNG');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('3', '8', 'NGÀY 3: YÊN MINH – CỘT CỜ LŨNG CÚ – CAO NGUYÊN ĐÁ ĐỒNG VĂN - SÔNG NHO QUẾ - MÃ PÌ LÈNG');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('3', '9', 'NGÀY 3: YÊN MINH – CỘT CỜ LŨNG CÚ – CAO NGUYÊN ĐÁ ĐỒNG VĂN - SÔNG NHO QUẾ - MÃ PÌ LÈNG');
+INSERT INTO `dulich`.`tour_diadanh` (`idT`, `idDD`, `tieude`) VALUES ('3', '10', 'NGÀY 4: ĐỒNG VĂN – PHỐ CÁO - NỘI BÀI – TP.HCM');
+
+select * from khuyenmai;
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test', '3', '1');
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test1', '8', '2');
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test2', '10', '3');
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test3', '11', '4');
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test4', '5', '5');
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test5', '4', '6');
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test6', '5', '7');
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test7', '6', '8');
+INSERT INTO `dulich`.`khuyenmai` (`tenKM`, `phantram`, `idT`) VALUES ('test8', '5', '9');
+
+select * from NKHT;
+INSERT INTO `dulich`.`NKHT` (`ngaykhoihanh`, `idT`) VALUES ('2023-11-9', '1');
+INSERT INTO `dulich`.`NKHT` (`ngaykhoihanh`, `idT`) VALUES ('2023-11-12', '1');
+
+select * from dattour;
+INSERT INTO `dulich`.`dattour` (`idT`, `giaL`, `giaN`, `slL`, `slN`, `trangthai`, `hotenLL`, `emailLL`, `sdtLL`, `diachiLL`) VALUES ('1', '2300000', '1500000', '1', '1', 'Chưa xử lí', 'mun', 'mun@gmail.com', '0927338993', 'Vĩnh Long');
+
+select * from diadanh;
+
+select * from tour;
+
+select * from diemdenNB;
+INSERT INTO `dulich`.`diemdenNB` (`idDD`) VALUES ('10');
+INSERT INTO `dulich`.`diemdenNB` (`idDD`) VALUES ('30');
+INSERT INTO `dulich`.`diemdenNB` (`idDD`) VALUES ('41');
+INSERT INTO `dulich`.`diemdenNB` (`idDD`) VALUES ('42');
+INSERT INTO `dulich`.`diemdenNB` (`idDD`) VALUES ('11');
+INSERT INTO `dulich`.`diemdenNB` (`idDD`) VALUES ('38');
+INSERT INTO `dulich`.`diemdenNB` (`idDD`) VALUES ('17');
+
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-11-9', 'Cần Thơ', '1');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-11-11', 'Cần Thơ', '2');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-11-13', 'Cần Thơ', '3');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-11-20', 'Cần Thơ', '4');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-11-22', 'Cần Thơ', '5');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-11-21', 'Cần Thơ', '6');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-11-27', 'Cần Thơ', '1');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-12-1', 'Cần Thơ', '7');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-11-30', 'Cần Thơ', '8');
+INSERT INTO `dulich`.`lichtrinh` (`ngaykhoihanh`, `noikhoihanh`, `idT`) VALUES ('2023-12-4', 'Cần Thơ', '9');
+
+select * from lehoi;
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ Hội Cầu Trăng', 'https://hagiangsensetravel.com/view/at_tong-hop-nhung-le-hoi-truyen-thong-tai-ha-giang_a1532e2004f2275585dc7891db440888.jpg', 'Đến với Hà Giang trong những ngày Rằm tháng Tám âm lịch, du khách sẽ có dịp chứng kiến lễ hội cầu Trăng hết sức độc đáo của đồng bào Tày ở thôn Bản Loan, xã Yên Định huyện Bắc Mê.', '3');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội hoa tam giác mạch', 'https://nangluongsachvietnam.vn/userfile/User/thanhtam/images/2022/9/27/hoa-tam-giac-mach-20220927093305187.jpg', 'Lễ hội này là dịp để Hà Giang quảng bá vẻ đẹp di sản, những nét văn hóa và tiềm năng du lịch. Thông thường, lễ hội hoa tam giác mạch diễn ra vào nửa cuối tháng 11 Dương lịch hàng năm. Mỗi năm, địa điểm tổ chức lại có thể thay đổi, có thể là ở sân vận động thị trấn Đồng Văn, Chợ tình Khâu Vai, …', '3');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội nhảy lửa', 'https://owa.bestprice.vn/images/articles/uploads/top-5-le-hoi-ha-giang-doc-dao-ban-khong-the-bo-lo-607557d9bc282.jpg', 'Lễ hội nhảy lửa (hay còn gọi là lễ hội cầu lửa) là lễ hội của đồng bào dân tộc Pà Thẻn ở Hà Giang, tổ chức vào ngày 16/10 Âm lịch hàng năm. Lúc này là thời gian mùa màng đã thu hoạch xong, bắt đầu vào thời điểm khắc nghiệt nhất của mùa đông. Theo quan niệm của người Pà Thẻn, lửa là vị thần tối cao nhất, tượng trưng cho sự bình an, may mắn. Mục đích diễn ra của lễ hội nhảy lửa chính là cầu cho một mùa màng bội thu, sức khỏe tràn đầy, xua đuổi hết những điều xui xẻo.', '3');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ Đôlta và hội đua bò Bảy Núi', 'https://cdnmedia.baotintuc.vn/Upload/DmtgOUlHWBO5POIHzIwr1A/files/2018/10/08-10/05-.jpg', 'Lễ Đôlta của đồng bào dân tộc Khmer là một trong những lễ hội quan trọng, diễn ra từ 29/8 đến ngày 1/9. Lễ Đôlta có ý nghĩa như lễ Vu Lan của người Kinh, là dịp để mọi người tưởng nhớ, cầu phúc cho linh hồn của ông bà, tổ tiên.', '1');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Chol Chnam Thmay', 'https://special.nhandan.vn/Chaul-Chnam-Thmay/assets/Hdb3EZsvx9/kho-me-1-1585842188628566903511-640x425.jpeg', 'Lễ hội Chol Chnam Thmay được xem như ngày Tết của người Khmer. Lễ hội diễn ra theo lịch riêng của người dân tộc này, thường rơi vào khoảng 14/4 đến 16/4 dương lịch.', '1');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội miếu Bà Chúa Xứ núi Sam', 'https://r2.nucuoimekong.com/wp-content/uploads/le-hoi-ba-chua-xu-nui-sam-1.jpg', 'Lễ hội vía Bà Chúa Xứ Núi Sam là một trong những lễ hội quan trọng ở vùng đất Bảy Núi, thu hút đông đảo du khách từ khắp nơi đến tham gia dâng lễ và chiêm bái. Thời gian diễn ra lễ hội kéo dài từ ngày 22/4 đến ngày 27/4 theo âm lịch.', '1');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội Quán Âm Nam Hải', 'https://dulichthuduc.com.vn/vnt_upload/news/01_2023/le_hoi_quan_the_am_nam_hai_du_lich_thu_duc_1.jpg', 'Lễ hội ở Bạc Liêu đầu tiên được nhiều người biết đến đó chính là Lễ hội Quán Âm Nam Hải. Quán Âm Nam Hải còn được gọi là Mẹ Nam Hải, tọa lạc tại cửa biển Nhà Mát, phường Nhà Mát, thành phố Bạc Liêu với diện tích 6ha. Lễ hội Quán Âm Nam Hải là một lễ hội mang màu sắc văn hóa Phật giáo thu hút hàng ngàn lượt khách phương xa đến hành hương vào mỗi năm.', '2');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội Dạ cổ Hoài Lang', 'https://dulichthuduc.com.vn/vnt_upload/news/01_2023/le_hoi_da_co_hoai_lang_du_lich_thu_duc_1.jpg', 'Lễ hội Dạ cổ Hoài Lang là dịp để tưởng nhớ và tri ân cố nhạc sĩ Cao Văn Lầu cùng với những nhạc sĩ, các bậc tiền bối đi trước đã có công đóng góp lớn cho sự ra đời và phát triển của bản Dạ cổ hoài lang. Cũng như bảo tồn và phát huy nghệ thuật đờn ca tài tử, một loại hình nghệ thuật truyền thống đặc sắc của dân tộc.', '2');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội Oóc Om Bók Bạc Liêu', 'https://dulichthuduc.com.vn/vnt_upload/news/01_2023/le_hoi_ok_om_bok_du_lich_thu_duc_1.jpg', 'Lễ hội Oóc Om Bók hay còn gọi là Lễ cúng trăng, một trong những lễ hội truyền thống của đồng bào dân tộc Khmer ở tỉnh Bạc Liêu. Diễn ra vào ngày rằm tháng 10 âm lịch hàng năm, Oóc Om Bók xuất phát từ tục lệ tạ ơn thần nước và cũng là dịp để bà con vui chơi sau những ngày lao động vất vả.', '2');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Hội chùa Hương', 'https://thesinhtour.com/wp-content/uploads/2023/01/chua-huong-1-1400x875-1-e1673937770605.jpg', 'Trong tour du lịch Hà Nội bạn nhất định không thể bỏ qua lễ hội chùa Hương - là một trong những lễ hội lớn của cả nước và đặc biệt là Hà Nội. Chính vì vậy, cứ mỗi dịp diễn ra lễ hội, du khách thập phương ghé đến xã Hương Sơn hoà vào dòng người đi trẩy hội rất đông.', '4');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội Làng Bát Tràng', 'https://owa.bestprice.vn/images/articles/uploads/tong-hop-cac-le-hoi-o-ha-noi-dac-sac-nhat-601b6905b6449.jpg', 'Về với vùng ngoại ô Hà Nội, chúng ta đều biết đến làng nghề gốm truyền thống Bát Tràng rất nổi tiếng thu hút đông đảo khách du lịch trong và ngoài nước. Đặc biệt, cứ dịp Tết đến xuân về, làng nghề này càng trở nên nhộn nhịp hơn khi diễn ra lễ hội Làng Bát Tràng.', '4');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội đền Cổ Loa', 'https://owa.bestprice.vn/images/articles/uploads/tong-hop-cac-le-hoi-o-ha-noi-dac-sac-nhat-601b691d11130.jpg', 'Thuộc danh sách các lễ hội đặc sắc ở Hà Nội, Lễ hội Cổ Loa nhằm mục đích tưởng nhớ An Dương Vương Thục Phán - vị anh hùng thời xưa đối với đất nước ta. Thành Cổ Loa đã chứng kiến một câu chuyện buồn khi đất nước rơi vào tay giặc nhưng đối với người Việt Nam thì đây luôn là di tích lịch sử đáng tự hào. Ngoài tưởng nhớ vị vua vĩ đại, lễ hội đền Cổ Loa còn nhắc nhở người dân về truyền thống “Uống nước nhớ nguồn” tốt đẹp từ bao đời của dân tộc.', '4');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Hội miếu Ông Địa', 'https://s3-ap-southeast-1.amazonaws.com/mytourcdn.com/resources/pictures/locations/szk1407831503.jpg', 'Một trong các lễ hội ở thành phố Hồ Chí Minh đầu tiên cần kể tới đó là hội miếu Ông Địa. Đây là một lễ hội tiêu biểu cho các lễ hội miếu ở thành phố và khu vực Nam Bộ. Lễ hội được tổ chức nhằm suy tôn Thổ Địa Phúc Đức Chính Thần với các vị thần dân khác.', '5');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ hội chùa Bà Thiên Hậu', 'https://owa.bestprice.vn/images/articles/uploads/tong-hop-cac-le-hoi-o-thanh-pho-ho-chi-minh-noi-tieng-nhat-6045716d2241c.jpg', 'Trong số các lễ hội ở thành phố Hồ Chí Minh nổi tiếng, lễ hội chùa Bà Thiên Hậu là lễ hội tiêu biểu của người Hoa, được tổ chức nhằm suy tôn Bà Thiên Hậu với lòng hiếu thảo đức hạnh, xả thân vì mọi người. Nhân dân và đặc biệt là người Hoa khu Chợ Lớn đến cúng bái rất đông, luôn cầu mong bình an và tin tưởng sự hiển linh của bà sẽ giúp vượt qua mọi trở ngại, khó khăn.', '5');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`) VALUES ('Lễ nghinh Ông', 'https://langchaixua.com/wp-content/uploads/2021/06/hinh18.jpg', 'Nghinh Ông (lễ hội ngư dân Cần Giờ) là lễ hội mang đậm bản chất của ngư dân vùng biển, gắn liền với tục thờ cá ông phổ biến. Lễ hội vừa là dịp cho ngư dân mong cầu bình yên khi đi biển, đánh bắt được nhiều tôm cá, cuộc sống được no ấm thịnh vượng, hạnh phúc trường tồn, cũng là dịp cho mọi người tưởng nhớ đến việc báo nghĩa, đền ơn, uống nước nhớ nguồn.', '5');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/10/12' WHERE (`idLH` = '2');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '20024/1/13' WHERE (`idLH` = '3');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/7/15' WHERE (`idLH` = '4');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/2/8' WHERE (`idLH` = '5');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024-01-15' WHERE (`idLH` = '1');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/3/24' WHERE (`idLH` = '6');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/4/14' WHERE (`idLH` = '7');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/3/21' WHERE (`idLH` = '8');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/5/22' WHERE (`idLH` = '9');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/1/6' WHERE (`idLH` = '10');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/2/12' WHERE (`idLH` = '11');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/2/13' WHERE (`idLH` = '12');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/5/22' WHERE (`idLH` = '13');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/6/13' WHERE (`idLH` = '14');
+UPDATE `dulich`.`lehoi` SET `ngayLH` = '2024/2/4' WHERE (`idLH` = '15');
+INSERT INTO `dulich`.`lehoi` (`tenLH`, `hinhLH`, `motaLH`, `idTinh`, `ngayLH`) VALUES ('Lễ hội Roóng Poọc', 'https://owa.bestprice.vn/images/articles/uploads/top-10-le-hoi-sapa-dac-sac-hap-dan-du-khach-nhat-5f277713e34a5.jpg', 'Lễ hội Roóng Poọc - lễ hội Sapa phản ánh ước nguyện của người dân về một cuộc sống dân an, vật thịnh. Toàn bộ diễn trình nghi lễ và các trò chơi luôn gắn với tín ngưỡng phồn thực, cầu cho vạn vật sinh sôi, nảy nở. Dấu vết cầu mưa cũng phản ánh khá đậm nét trong lễ hội này. Người ta sẽ dán giấy màu vàng hình con rồng trên vòng nhật nguyệt với ý nghĩa cầu cho mưa thuận gió hòa.', '9', '2024-2-16');
+
+select tinhDD from diadanh;
+
+select * from tour_diadanh;
+select * from tournb;
+INSERT INTO `dulich`.`tournb` (`idT`) VALUES ('4');
+INSERT INTO `dulich`.`tournb` (`idT`) VALUES ('3');
+INSERT INTO `dulich`.`tournb` (`idT`) VALUES ('7');
+INSERT INTO `dulich`.`tournb` (`idT`) VALUES ('8');
+INSERT INTO `dulich`.`tournb` (`idT`) VALUES ('10');
+INSERT INTO `dulich`.`tournb` (`idT`) VALUES ('11');
+
+select * from diemdennb;
+
+select * from diemdenNB natural join diadanh group by idDD;
+select * from diadanh;
+select * from lichtrinh;
+-- drop table diemdennb;
+select * from tour;
+
+select * from diemdenNB natural join diadanh  natural join tour_diadanh natural join lichtrinh; 
+select * from tour_diadanh;
+select * from dattour;
+select * from ;
+
+
+

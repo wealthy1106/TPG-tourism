@@ -78,9 +78,10 @@
                                     Đăng ký
                               </router-link>
                               <div class="dropdown" v-if="hienlen">
-                                    <button class="btn btn-primary dropdown-toggle rounded-pill py-2 px-4" type="button"
+                                    <button :key="index" v-for="(tt, index) in taikhoan"
+                                          class="btn btn-primary dropdown-toggle rounded-pill py-2 px-4" type="button"
                                           data-toggle="dropdown" aria-expanded="false">
-                                          Min
+                                          {{ tt.hoten }}
                                     </button>
                                     <div class="dropdown-menu">
                                           <router-link to="/canhan" class="btn rounded-pill py-2 px-4 dropdown-item">
@@ -126,10 +127,14 @@ export default {
                   hienlai: false,
                   lienhe: [],
                   timkiem: '',
+                  iduser: '',
+                  taikhoan: '',
             }
 
       },
       mounted() {
+            console.log('user', localStorage.getItem('user'))
+            this.iduser = localStorage.getItem('user')
             this.token = localStorage.getItem('token')
             if (this.token != null) {
                   this.hienlen = true
@@ -148,6 +153,18 @@ export default {
                   .catch((error) => {
                         console.log(error);
                   });
+            if (this.iduser != null) {
+                  axios.get('http://localhost:3000/api/taikhoan/' + this.iduser)
+                        .then((response) => {
+                              this.taikhoan = response.data;
+                              console.log('taikhoan', this.taikhoan)
+                        })
+                        .catch((error) => {
+                              console.log(error);
+                        });
+            } else {
+                  return 'chua dang nhap'
+            }
 
       },
       methods: {
@@ -163,6 +180,7 @@ export default {
             },
             test() {
                   localStorage.removeItem('token');
+                  localStorage.removeItem('user')
                   this.hienlen = false
                   this.hienlai = true
                   // this.$router.push({ name: 'login' });

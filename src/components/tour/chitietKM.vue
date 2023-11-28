@@ -389,7 +389,7 @@ export default {
                   km: [],
                   tong: 0,
                   giatre: 0,
-
+                  iduser: '',
             }
       },
       computed: {
@@ -405,17 +405,11 @@ export default {
             }
       },
       mounted() {
+            this.iduser = localStorage.getItem('user')
+            console.log('user', localStorage.getItem('user'))
+
             var urlid = this.$route.params.id
             var urlidLT = this.$route.params.idLT
-            // if (localStorage.getItem('reloaded')) {
-            //       // The page was just reloaded. Clear the value from local storage
-            //       // so that it will reload the next time this page is visited.
-            //       localStorage.removeItem('reloaded');
-            // } else {
-            //       // Set a flag so that we know not to reload the page twice.
-            //       localStorage.setItem('reloaded', '1');
-            //       location.reload();
-            // }
             console.log('id', urlid)
             axios.get('http://localhost:3000/api/thanhtoan/all/' + urlid)
                   .then((response) => {
