@@ -1,7 +1,7 @@
 <script setup>
 import hea from '../src/components/header.vue'
 import fot from '../src/components/footer.vue'
-import MessengerChat from './components/MessengerChat.vue';
+// import MessengerChat from './components/MessengerChat.vue';
 </script>
 
 <template>
@@ -11,15 +11,15 @@ import MessengerChat from './components/MessengerChat.vue';
     <div>
       <router-view />
     </div>
-    <messenger-chat></messenger-chat>
+    <!-- <messenger-chat></messenger-chat> -->
     <fot />
   </div>
 </template>
-<script>
+<!-- <script>
 export default {
   components: {
     MessengerChat
   },
   // Other Vue.js options go here
 }
-</script>
+</script> -->

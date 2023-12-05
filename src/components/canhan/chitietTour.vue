@@ -148,7 +148,7 @@
                               <div class="qr-code">
                                     <div class="image">
                                           <div class="wrapper">
-                                                <img style="width: 200px;" src="./../assets/TPG Tourism_qrcode.png">
+                                                <img style="width: 200px;" src="./../../assets/qr.png">
                                           </div>
 
                                     </div>

@@ -36,26 +36,28 @@
 
                   <div class="container">
                         <h3 class="mb-5">Chương trình tour</h3>
-                        <h4>NGÀY 1: TP. HỒ CHÍ MINH - HÀ NỘI - QUẢN BẠ - YÊN MINH ( ĂN TRƯA, TỐI)</h4>
-                        <p>Buổi sáng: HDV hỗ trợ quý khách làm thủ tục check in tại sân bay Tân Sơn Nhất bay đến Hà Nội.
+                        <div class="map-route">
+                              <section class="section-07 mb-5">
+                                    <div class="container">
+                                          <div class="timeline-section">
+                                                <div :key="index" v-for="(tt, index) in lichtrinh ">
+                                                      <h3>{{ tt.tieude }}</h3>
+                                                      <div class="excerpt">
+                                                            <h4>{{ tt.tenDD }}</h4>
+                                                            <span class="line"></span>
+                                                            <title>{{ tt.tenDD }}</title>
+                                                            <p style="text-align:justify">{{ tt.motaDD }}</p>
+                                                            <img class="hinh" :src="tt.hinh1" alt="" srcset="">
+                                                            <p style="margin: 10px auto;text-align: center;">{{ tt.tenDD }}
+                                                            </p>
+                                                      </div>
 
-                              Đến sân bay Nội Bài, quý khách khởi hành đi Hà Giang
+                                                </div>
 
-                              Trên đường đi Quý khách có thể ngắm cảnh rừng núi rừng Đông Bắc vô cùng hùng vĩ và hoang sơ và
-                              dừng
-                              chân
-                              chụp những bức hình lưu niệm.
-
-                              Buổi trưa: Quý khách dùng cơm trưa tại Tuyên Quang.
-
-                              - Quý khách tiếp tục hành trình lên núi khám phá Huyện Quản Bạ với: Núi Đôi Cô Tiên - “tác phẩm
-                              nghệ
-                              thuật”
-                              của tạo hoá ban tặng cho vùng đất này. “Núi Đôi” nổi tiếng đã tạo cho thung lũng Quản Bạ một
-                              cảnh quan
-                              độc
-                              nhất vô nhị hết sức hấp dẫn.</p>
-                        <img id="hinh" src="../../assets/hagiang1.jpg" alt="" style="object-fit: cover;">
+                                          </div>
+                                    </div>
+                              </section>
+                        </div>
                         <br>
                         <h4>Hướng dẫn viên</h4>
                         <p>Hướng Dẫn Viên (HDV) sẽ liên lạc với Quý Khách khoảng 1-2 ngày trước khi khởi hành để sắp xếp giờ
@@ -172,7 +174,7 @@
                                     <!-- <p class="col-4" style="text-align: center;">Người lớn</p> -->
                                     <!-- <p>2300000</p> -->
                                     <input disabled class="col-4" type="text" value="Người lớn" id="gia">
-                                    <input disabled class="col-4" type="text" v-model="this.tour[0].nguoilon" id="gia">
+                                    <input disabled class="col-4" type="text" v-model="this.km[0].veNL" id="gia">
                                     <p class="col-4" style="text-align: center;padding-top: 10px;">
                                           <button @click="increaseValue()" id="mau">+</button>
                                           <input id="trangtri" @input="updateForms" type="text" v-model="inputValue">
@@ -184,8 +186,8 @@
                                           <input disabled type="text" value="Trẻ em" id="gia">
                                           <select class="form-control" v-model="giatre"
                                                 style="width: 110px; background-color: aliceblue;">
-                                                <option :value="this.tour[0].tred3">Dưới 3 tuổi</option>
-                                                <option :value="this.tour[0].tre10">Từ 3 - 10</option>
+                                                <option :value="this.km[0].tred3">Dưới 3 tuổi</option>
+                                                <option :value="this.km[0].veT">Từ 3 - 10</option>
                                                 <!-- <option value="option3"></option> -->
                                           </select>
                                     </div>
@@ -310,6 +312,11 @@ ClassicEditor
       height: auto;
 }
 
+.hinh {
+      width: 810px;
+      height: 399px;
+}
+
 .top {
       padding-top: 10px;
 }
@@ -390,6 +397,7 @@ export default {
                   tong: 0,
                   giatre: 0,
                   iduser: '',
+                  lichtrinh: [],
             }
       },
       computed: {
@@ -410,6 +418,7 @@ export default {
 
             var urlid = this.$route.params.id
             var urlidLT = this.$route.params.idLT
+            var urlidKM = this.$route.params.idKM
             console.log('id', urlid)
             axios.get('http://localhost:3000/api/thanhtoan/all/' + urlid)
                   .then((response) => {
@@ -427,15 +436,14 @@ export default {
                   .catch((error) => {
                         console.log(error);
                   });
-            axios.get('http://localhost:3000/api/tour/' + urlid)
+            axios.get('http://localhost:3000/api/diadanh/lichtrinh/' + urlid)
                   .then((response) => {
-                        this.km = response.data;
-                        console.log('KM', this.km)
+                        this.lichtrinh = response.data;
+                        console.log('lichtrinh', this.lichtrinh)
                   })
                   .catch((error) => {
                         console.log(error);
                   });
-
 
             // axios.get('http://localhost:3000/api/tour/' + urlid)
             //       .then((response) => {
@@ -453,14 +461,14 @@ export default {
                   .catch((error) => {
                         console.log(error);
                   });
-            // axios.get('http://localhost:3000/api/tour/')
-            //       .then((response) => {
-            //             this.tour1 = response.data;
-            //             console.log('tour', this.tour1)
-            //       })
-            //       .catch((error) => {
-            //             console.log(error);
-            //       });
+            axios.get('http://localhost:3000/api/tour/')
+                  .then((response) => {
+                        this.tour1 = response.data;
+                        console.log('tour', this.tour1)
+                  })
+                  .catch((error) => {
+                        console.log(error);
+                  });
             axios.get('http://localhost:3000/api/thanhtoan/date/' + urlid)
                   .then((response) => {
                         this.ngaythang = response.data;
@@ -469,14 +477,16 @@ export default {
                   .catch((error) => {
                         console.log(error);
                   });
-            axios.get('http://localhost:3000/api/tour/' + urlid)
+            axios.get('http://localhost:3000/api/khuyenmai/giaKM/' + urlid + '/' + urlidKM)
                   .then((response) => {
                         this.km = response.data;
+                        // console.log('axios', 'http://localhost:3000/api/khuyenmai/giaKM/' + urlid + '/' + urltenKM)
                         console.log('KM', this.km)
                   })
                   .catch((error) => {
                         console.log(error);
                   });
+
 
       },
       methods: {

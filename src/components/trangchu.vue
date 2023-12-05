@@ -82,12 +82,12 @@
                                                 </div>
                                                 <div style="text-align: center;">
                                                       <router-link
-                                                            :to="{ name: 'tour', params: { id: tt.idT, idLT: tt.idLT } }">
+                                                            :to="{ name: 'chitietKM', params: { id: tt.idT, idLT: tt.idLT, idKM: tt.idKM } }">
                                                             <button class="btn btn-primary top">Chi tiết</button>
                                                       </router-link>
                                                       ||
                                                       <router-link
-                                                            :to="{ name: 'tourKM', params: { id: tt.idT, tenKM: tt.tenKM } }">
+                                                            :to="{ name: 'tourKM', params: { id: tt.idT, idKM: tt.idKM } }">
                                                             <button class="btn btn-primary top">Đặt tour</button>
                                                       </router-link>
                                                 </div>
@@ -137,11 +137,12 @@
                                                 </div>
                                                 <div style="text-align: center;">
                                                       <router-link
-                                                            :to="{ name: 'tour', params: { id: tt.idT, idLT: tt.idLT } }">
+                                                            :to="{ name: 'chitietKM', params: { id: tt.idT, idLT: tt.idLT, idKM: tt.idKM } }">
                                                             <button class="btn btn-primary top">Chi tiết</button>
                                                       </router-link>
                                                       ||
-                                                      <router-link :to="{ name: 'giohang', params: { id: tt.idT } }">
+                                                      <router-link
+                                                            :to="{ name: 'tourKM', params: { id: tt.idT, idKM: tt.idKM } }">
                                                             <button class="btn btn-primary top">Đặt tour</button>
                                                       </router-link>
                                                 </div>
@@ -192,11 +193,12 @@
                                                 </div>
                                                 <div style="text-align: center;">
                                                       <router-link
-                                                            :to="{ name: 'tour', params: { id: tt.idT, idLT: tt.idLT } }">
+                                                            :to="{ name: 'chitietKM', params: { id: tt.idT, idLT: tt.idLT, idKM: tt.idKM } }">
                                                             <button class="btn btn-primary top">Chi tiết</button>
                                                       </router-link>
                                                       ||
-                                                      <router-link :to="{ name: 'giohang', params: { id: tt.idT } }">
+                                                      <router-link
+                                                            :to="{ name: 'tourKM', params: { id: tt.idT, idKM: tt.idKM } }">
                                                             <button class="btn btn-primary top">Đặt tour</button>
                                                       </router-link>
                                                 </div>
@@ -295,7 +297,7 @@
                                                 style="object-fit: cover;">
                                           <div
                                                 class="bg-white text-danger fw-bold position-absolute top-0 start-0 m-3 py-1 px-2">
-                                                {{ tt.tinhDD }}</div>
+                                                {{ tt.tenTinh }}</div>
                                           <div
                                                 class="bg-white text-primary fw-bold position-absolute bottom-0 end-0 m-3 py-1 px-2">
                                                 {{ tt.tenDD }}</div>

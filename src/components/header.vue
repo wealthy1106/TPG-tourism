@@ -6,6 +6,7 @@
                   <span class="sr-only">Loading...</span>
             </div>
       </div> -->
+            <thongbaodangxuat ref="notification"></thongbaodangxuat>
             <!-- Topbar Start -->
             <div class="container-fluid bg-dark px-5 d-none d-lg-block">
                   <div class="row gx-0">
@@ -72,14 +73,15 @@
 
                                     </router-link>
                                     <!-- <a href="contact.html" class="nav-item nav-link">Contact</a> -->
+
                               </div>
                               <router-link v-if="hienlai" :to="{ name: 'dangnhap' }"
                                     class="btn btn-primary rounded-pill py-2 px-4">
-                                    Đăng ký
+                                    Đăng nhập
                               </router-link>
                               <div class="dropdown" v-if="hienlen">
                                     <button :key="index" v-for="(tt, index) in taikhoan"
-                                          class="btn btn-primary dropdown-toggle rounded-pill py-2 px-4" type="button"
+                                          class="btn btn-primary rounded-pill py-2 px-4 dropdown-toggle" type="button"
                                           data-toggle="dropdown" aria-expanded="false">
                                           {{ tt.hoten }}
                                     </button>
@@ -87,13 +89,17 @@
                                           <router-link to="/canhan" class="btn rounded-pill py-2 px-4 dropdown-item">
                                                 Trang cá nhân
                                           </router-link>
-                                          <button @click="test" class="btn rounded-pill py-2 px-4 dropdown-item">
+
+                                          <button @click="dangxuat" class="btn rounded-pill py-2 px-4 dropdown-item">
                                                 Đăng xuất
                                           </button>
                                     </div>
                               </div>
 
                         </div>
+                        <!-- <button @click="test" class="btn rounded-pill py-2 px-4 dropdown-item">
+                              Đăng xuất
+                        </button> -->
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                               data-bs-target="#navbarCollapse">
                               <span class="fa fa-bars"></span>
@@ -103,23 +109,30 @@
             </div>
             <!-- Navbar & Hero End -->
             <!-- Footer Start -->
-
+            <div class="card text-center thongbao" v-if="isVisible">
+                  <div class="card-header">
+                        <!-- Thêm biểu tượng xóa ở đây -->
+                        <button class="close" @click="closeNotification">
+                              <span aria-hidden="true">&times;</span>
+                        </button>
+                        Thông báo
+                  </div>
+                  <div class="card-body">
+                        <h5 class="card-title">{{ message }}</h5>
+                        <button @click="xacnhandangxuat" style="width: 100px;" type="button" class="btn btn-primary">Xác
+                              nhận</button>
+                  </div>
+            </div>
       </body>
-      <!-- <button @click="test1">test1</button>
-      <button @click="test2">test2</button>
-      <button @click="test">đăng xuất</button> -->
-      <!-- <router-link :to="{ name: 'tour', params: { id: 2 } }">
-            <button>test</button>
-      </router-link> -->
-      <!-- Messenger Plugin chat Code -->
-      <!-- <div>
-            <div id="fb-root"></div>
-            <div id="fb-customer-chat" class="fb-customerchat"></div>
-      </div> -->
 </template>
 <script>
 import axios from 'axios';
+import Notification from "@/components/thongbao/Notification.vue";
+import thongbaodangxuat from "@/components/thongbao/dangxuat.vue";
 export default {
+      components: {
+            thongbaodangxuat,
+      },
       data() {
             return {
                   token: '',
@@ -129,6 +142,8 @@ export default {
                   timkiem: '',
                   iduser: '',
                   taikhoan: '',
+                  isVisible: false,
+                  message: ""
             }
 
       },
@@ -144,6 +159,7 @@ export default {
             } else {
                   this.hienlen = false
                   this.hienlai = true
+
             }
             axios.get('http://localhost:3000/api/lienhe/')
                   .then((response) => {
@@ -167,31 +183,61 @@ export default {
             }
 
       },
+      // created() {
+      //       // Hãy chắc chắn rằng đoạn mã này được đặt trong ngữ cảnh của một thành phần Vue
+      //       this.$on('dang-xuat', this.xuLyDangXuat);
+      // },
       methods: {
+            showAlert() {
+                  this.$refs.notification.showNotification("Xác nhận đăng xuất!");
+            },
+            showNotification(message) {
+                  this.$refs.notification.showNotification(message);
+            },
+            xuLyDangXuat() {
+                  // Thực hiện hành động khi người dùng đăng xuất (hiển thị nút đăng nhập)
+                  this.hienlai = true;
+                  this.notificationVisible = false; // Ẩn thông báo khi người dùng xác nhận đăng xuất
+            },
             trangchu() {
                   this.$router.push({ name: "trangchu" });
             },
             tk() {
-                  this.$router.push({ name: "timkiemtinh", params: { idTDD: this.timkiem } });
+                  this.$router.push({ name: "tk", params: { tenDD: this.timkiem } });
                   // Thực hiện tìm kiếm dựa trên this.timkiem
                   console.log('Searching for:', this.timkiem);
                   // Thêm logic tìm kiếm của bạn ở đây
-
             },
-            test() {
+            dangxuat() {
+                  this.showNotification("Xác nhận đăng xuất");
+                  // localStorage.removeItem('token');
+                  // localStorage.removeItem('user')
+                  // this.hienlen = false
+                  // this.hienlai = true
+                  // this.$router.push({ name: 'login' });
+            },
+
+            xacnhandangxuat() {
+                  // Thực hiện các bước đăng xuất, ví dụ: xóa token, làm mới trang, v.v.
                   localStorage.removeItem('token');
                   localStorage.removeItem('user')
                   this.hienlen = false
                   this.hienlai = true
                   // this.$router.push({ name: 'login' });
+                  this.closeNotification();
+
             },
-            test1() {
-                  this.hienlen = true
-                  this.hienlai = false
+            showNotification(message) {
+                  this.message = message;
+                  this.isVisible = true;
+
+                  // Tự động đóng sau 30 giây
+                  // setTimeout(() => {
+                  //       this.closeNotification();
+                  // }, 30000);
             },
-            test2() {
-                  this.hienlen = false
-                  this.hienlai = true
+            closeNotification() {
+                  this.isVisible = false;
             }
       }
 }
@@ -199,5 +245,12 @@ export default {
 <style>
 #icon {
       width: 10%;
+}
+
+.thongbao {
+      width: 500px;
+      margin: 0 auto;
+      top: 40%;
+      z-index: 2;
 }
 </style>

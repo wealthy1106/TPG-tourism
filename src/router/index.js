@@ -18,6 +18,12 @@ const routes = [
             props: true,
       },
       {
+            path: "/tour/:id/:idLT/:idKM",
+            name: "chitietKM",
+            component: () => import("@/components/tour/chitietKM.vue"),
+            props: true,
+      },
+      {
             path: "/login",
             name: "dangnhap",
             component: () => import("@/components/login.vue"),
@@ -57,17 +63,17 @@ const routes = [
       {
             path: "/timkiem/:idDD",
             name: "timkiem",
-            component: () => import("@/components/tour.vue"),
+            component: () => import("@/components/timkiem/tour.vue"),
       },
-      // {
-      //       path: "/timkiem/:tenDD",
-      //       name: "tk",
-      //       component: () => import("@/components/timkiem.vue"),
-      // },
+      {
+            path: "/tk/:tenDD",
+            name: "tk",
+            component: () => import("@/components/timkiem/timkiemdiadanh.vue"),
+      },
       {
             path: "/tinh/:idTDD",
             name: "timkiemtinh",
-            component: () => import("@/components/timkiem.vue"),
+            component: () => import("@/components/timkiem/timkiem.vue"),
       },
       {
             path: "/thanhtoan/:idT",
@@ -81,7 +87,7 @@ const routes = [
             props: true,
       },
       {
-            path: "/tourKM/:id/:tenKM",
+            path: "/tourKM/:id/:idKM",
             name: "tourKM",
             component: () => import("@/components/giohang/giohangKm.vue"),
             props: true,

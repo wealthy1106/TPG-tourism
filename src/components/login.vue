@@ -2,14 +2,16 @@
 <template>
       <div
             style="height: 900px;background: url(https://vcdn1-dulich.vnecdn.net/2022/04/01/cd9-1648805106-2272-1648805130.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=3c-4ukGtszUc5TFifaH3Qg) #fff;">
-            <div class="success-message" v-if="thongbaodangnhap"
-                  style="z-index: 2;width: 600px;text-align: center;margin: 0px auto;top: 50%;height: 20%;padding: 60px;">
+            <notification ref="notification"></notification>
+            <!-- <div class="success-message" v-if="thongbaodangnhap"
+                  style="z-index: 2;width: 600px;text-align: center;margin: 0 auto;top: 50%;height: 20%;padding: 60px;">
                   <p>Bạn đã đăng nhập thành công.</p>
-            </div>
-            <div class="success-message" v-if="thongbaodangky"
-                  style="z-index: 2;width: 600px;text-align: center;margin: 300px 100px;top: 50%;height: 20%;padding: 60px;">
+            </div> -->
+            <!-- <div class="success-message" v-if="thongbaodangky"
+                  style="z-index: 2;width: 600px;text-align: center;margin: 0 auto;top: 50%;height: 20%;padding: 60px;">
                   <p>Bạn đã đăng ký thành công.</p>
-            </div>
+            </div> -->
+            <tbdky ref="tbdky"></tbdky>
             <div class="panel shadow1" style="z-index: 1;">
                   <form class="login-form">
                         <div class="panel-switch animated fadeIn">
@@ -34,7 +36,7 @@
                                           <div class="form-group col-md-6">
                                                 <!-- <label for="inputEmail4">Họ Tên</label> -->
                                                 <input style="width: 100%;" v-model="hoten" type="text"
-                                                      class="login animated fadeInUp animate2" name="firstname"
+                                                      class="login animated fadeInUp animate2" name="firstname" required
                                                       placeholder="Họ tên">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -51,19 +53,20 @@
                                           <div class="form-group">
                                                 <!-- <label for="inputEmail4">Email</label> -->
                                                 <input v-model="email" type="email" class="login animated fadeInUp animate2"
-                                                      name="email" placeholder="Email">
+                                                      name="email" placeholder="Email" required>
                                           </div>
                                           <div class="form-group">
                                                 <input v-model="matkhau" :type="hienThiMatKhau ? 'text' : 'password'"
                                                       class="login animated fadeInUp animate2" name="password"
-                                                      placeholder="Mật khẩu">
+                                                      placeholder="Mật khẩu" required>
                                                 <br>
-                                                <input class="login animated fadeInUp animate2" type="checkbox"
+                                                <input class="login animated fadeInUp animate2" type="checkbox" required
                                                       v-model="hienThiMatKhau" style="width: 20px;height: 20px;"> Hiển thị
                                                 mật khẩu
                                           </div>
                                           <div class="form-group">
-                                                <input v-model="nhaplaimatkhau" :type="hienThiMatKhau ? 'text' : 'password'"
+                                                <input required v-model="nhaplaimatkhau"
+                                                      :type="hienThiMatKhau ? 'text' : 'password'"
                                                       class="login animated fadeInUp animate2" name="password_confirmation"
                                                       placeholder="Nhập lại mật khẩu">
                                                 <p v-if="!kiemTraMatKhauHopLe()">Mật khẩu không khớp.</p>
@@ -71,13 +74,13 @@
                                     </div>
                                     <div class="form-group">
                                           <!-- <label for="inputAddress2">Địa chỉ</label> -->
-                                          <input type="text" v-model="diachi" class="login animated fadeInUp animate2"
-                                                name="diachi" placeholder="Địa chỉ">
+                                          <input required type="text" v-model="diachi"
+                                                class="login animated fadeInUp animate2" name="diachi" placeholder="Địa chỉ">
                                     </div>
                                     <div class="form">
                                           <div class="form-group">
                                                 <!-- <label for="inputCity">Số điện thoại</label> -->
-                                                <input v-model="sdt" style="width: 200px;" type="text"
+                                                <input required v-model="sdt" style="width: 200px;" type="text"
                                                       class="login animated fadeInUp animate2" placeholder="Số điện thoại"
                                                       name="phone" id="sdt">
                                           </div>
@@ -98,9 +101,9 @@
                         </fieldset>
 
                         <input type="button" id="login-form-submit"
-                              class="dangky login_form button animated fadeInUp animate4" value="Log in" @click="login">
+                              class="dangky login_form button animated fadeInUp animate4" value="Đăng nhập" @click="login">
                         <input type="button" id="signup-form-submit"
-                              class="login_form button animated fadeInUp animate4 hidden dangky" @click="dangky"
+                              class="login_form button animated fadeInUp animate4 hidden dangky" @click="kiemTraVaDangKy"
                               value="Đăng ký">
 
 
@@ -472,7 +475,15 @@ a {
 </style>
 <script>
 import axios from 'axios';
+import Notification from "@/components/thongbao/Notification.vue";
+import tbdky from "@/components/thongbao/tbdky.vue";
+import nhapdaydu from "@/components/thongbao/nhap.vue";
 export default {
+      components: {
+            Notification,
+            tbdky,
+            nhapdaydu,
+      },
       data() {
             return {
                   taikhoan: [],
@@ -504,13 +515,43 @@ export default {
             //       localStorage.setItem('reloaded', '1');
             //       location.reload();
             // }
+
+
       },
       methods: {
+            showNotification(message) {
+                  this.$refs.notification.showNotification(message);
+            },
+            showAlert() {
+                  this.$refs.notification.showNotification("Đăng ký tài khoản thành công!");
+            },
             kiemTraMatKhauHopLe() {
                   return this.matkhau === this.nhaplaimatkhau;
             },
+            kiemTraVaDangKy() {
+                  if (this.kiemTraThongTinNhap()) {
+                        // Nếu kiểm tra thành công, gọi hàm đăng ký
+                        this.dangky();
+                  } else {
+                        // Nếu có lỗi, bạn có thể hiển thị thông báo hoặc thực hiện các hành động khác
+                        // console.log('Vui lòng điền đầy đủ thông tin!');
+                        this.showNotification("Vui lòng điền đầy đủ thông tin!");
+                  }
+            },
+            kiemTraThongTinNhap() {
+                  // Kiểm tra các trường cần kiểm tra và trả về true nếu đúng, ngược lại trả về false
+                  return (
+                        this.hoten &&
+                        this.gioitinh &&
+                        this.email &&
+                        this.matkhau &&
+                        this.nhaplaimatkhau &&
+                        this.diachi &&
+                        this.sdt
+                        // Thêm các trường khác cần kiểm tra nếu cần
+                  );
+            },
             dangky() {
-
                   axios.post('http://localhost:3000/api/taikhoan/', {
                         "hoten": this.hoten,
                         "email": this.email,
@@ -522,8 +563,8 @@ export default {
                   })
                         .then((response) => {
                               this.taikhoan = response.data
-                              console.log('taikhoan', this.taikhoan)
-                              this.thongbaodangky = true;
+                              // console.log('taikhoan', this.taikhoan)
+                              this.showAlert();
                               // this.$router.push({ name: 'login' });
                               window.location.reload();
                         })
@@ -534,31 +575,39 @@ export default {
 
             },
             login() {
-                  console.log(this.email1, this.matkhau1)
+                  // console.log(this.email1, this.matkhau1)
                   axios.post('http://localhost:3000/api/taikhoan/ktlogin', {
                         "email": this.email1,
                         "matkhau": this.matkhau1,
                   })
                         .then((response) => {
                               if (response.data.message == 'Login successful') {
-                                    console.log(response.data.token)
-                                    var token = ('token', response.data.token)
-                                    this.user = response.data.user
-                                    localStorage.setItem('token', token)
-                                    localStorage.setItem('user', this.user)
-                                    console.log('user', localStorage.setItem('user', this.user.id))
-                                    // this.thongbaodangnhap = true;
-                                    this.$router.push({ name: 'trangchu' });
+                                    // console.log('vaitro', response.data.user.vaitro)
+                                    if (response.data.user.vaitro == 'user') {
+                                          // console.log(response.data.token)
+                                          var token = ('token', response.data.token)
+                                          this.user = response.data.user.id
+                                          localStorage.setItem('token', token)
+                                          localStorage.setItem('user', this.user)
+                                          this.hienlen = true; // Thay đổi giá trị của hienlen ngay sau khi đăng nhập thành công
+                                          this.hienlai = false;
+                                          // console.log('user', localStorage.setItem('user', this.user.id))
+                                          // this.thongbaodangnhap = true;
+                                          this.$router.push({ name: 'trangchu' });
+                                    } else {
+                                          this.showNotification("Tài khoản không tồn tại!");
+                                    }
+
                               }
                               this.taikhoan = response.data
-                              console.log('taikhoan', this.taikhoan)
+                              // console.log('taikhoan', this.taikhoan)
 
                         })
                         .catch((error) => {
                               console.log(error);
                               this.isAlertVisible = true;
                         });
-                  console.log(this.email1, this.matkhau1)
+                  // console.log(this.email1, this.matkhau1)
 
             }
       }
