@@ -75,7 +75,7 @@
                   <div id="col4">
                         <h4>Lịch khởi hành & giá</h4>
                         <div id="mar">
-                              <p>Chọn ngày khởi hành</p>
+                              <p class="p">Chọn ngày khởi hành</p>
                               <div class="row">
                                     <button :key="index" v-for="(tt, index) in ngaythang" @click="chonngay(tt.ngaykhoihanh)"
                                           style="padding: 5px; margin-left: 10px; border: 1px solid slateblue;" type="button"
@@ -119,7 +119,21 @@
                               <input class="col-5" disabled type="text" v-model="tong" readonly>
                         </div>
                         <br>
-                        <h4 style="color: chocolate;">Đã áp dụng mã giảm giá</h4>
+                        <div>
+                              <p class="p">Chọn phương thức thanh toán:</p>
+                              <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline1" name="customRadioInline"
+                                          class="custom-control-input" value="tructiep" v-model="selectedRadio">
+                                    <label class="custom-control-label" for="customRadioInline1">Trực tiếp tại cơ sở</label>
+                              </div>
+                              <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline2" name="customRadioInline"
+                                          class="custom-control-input" value="online" v-model="selectedRadio">
+                                    <label class="custom-control-label" for="customRadioInline2">Online qua banking</label>
+                              </div>
+
+                        </div>
+                        <br>
                         <div class="row" id="martop">
                               <!-- Button trigger modal -->
                               <button id="tuvan" type="button" class="btn btn-primary col-5 " data-toggle="modal"
@@ -191,6 +205,14 @@
       </div>
 </template>
 <style>
+.p {
+      font-size: 20px;
+}
+
+label {
+      font-size: 20px;
+}
+
 .login-modal {
       color: #555863
 }
@@ -251,6 +273,8 @@ export default {
       },
       data() {
             return {
+                  idTT: '',
+                  idDT: '',
                   shouldShowFormsTre: false,
                   selectedDate: '',
                   tour: [],
@@ -261,6 +285,7 @@ export default {
                   // km: [],
                   tong: 0,
                   dattour: [],
+                  giatritong: 0,
                   forms: [
                         {
                               hoten: '',
@@ -279,9 +304,14 @@ export default {
                   datetour: '',
                   selectedNgayKhoiHanh: '',
                   errorMesssage: '',
+                  selectedRadio: "Trực tiếp",
+                  thanhtoan: [],
             }
       },
       watch: {
+            selectedRadio: function (newVal, oldVal) {
+                  console.log('Giá trị đã thay đổi:', newVal);
+            },
             inputValue: function (newVal, oldVal) {
                   // Cập nhật số lượng forms khi giá trị của input thay đổi
                   const currentNumberOfForms = this.forms.length;
@@ -328,15 +358,21 @@ export default {
             },
 
             tong: function () {
+                  // Gán giá trị vào biến giatritong
+                  this.giatritong = 0;
+
                   if (this.tour.length > 0) {
                         var giaNL = this.tour[0].nguoilon;
                         console.log('gia', giaNL);
-                        // Tính toán và trả về kết quả tự động khi giá trị của input thay đổi
-                        return (giaNL * this.inputValue) + (this.giatre * this.ipValue);
-                  } else {
-                        return 0; // Hoặc giá trị mặc định khác tùy theo logic ứng dụng của bạn
+
+                        // Tính toán và lưu giá trị vào biến giatritong
+                        this.giatritong = (giaNL * this.inputValue) + (this.giatre * this.ipValue);
                   }
+
+                  console.log('Giá trị tính được của hàm tong:', this.giatritong);
+                  return this.giatritong;
             },
+
             // giatre() {
             //       return this.giatre = this.tour.tre10
             // }
@@ -364,19 +400,7 @@ export default {
                   .catch((error) => {
                         console.log(error);
                   });
-            // axios.get('http://localhost:3000/api/tour/' + urlid)
-            //       .then((response) => {
-            //             this.km = response.data;
-            //             console.log('KM', this.km)
-            //       })
-            //       .catch((error) => {
-            //             console.log(error);
-            //       });
-            // if (this.selectedNgayKhoiHanh === '') {
-            //       // Nếu có ít nhất một ngày trong mảng ngaythang
-            //       // this.selectedNgayKhoiHanh = this.ngaythang[0].ngaykhoihanh;
-            //       console.log('n1', this.selectedNgayKhoiHanh)
-            // }
+
       },
       methods: {
             validateHanhKhach() {
@@ -459,33 +483,7 @@ export default {
                   }
 
                   var urlid = this.$route.params.id
-                  axios.post('http://localhost:3000/api/dattour/' + urlid, {
-                        "idTK": localStorage.getItem('user'),
-                        "giaL": this.tour[0].nguoilon,
-                        "giaN": this.giatre,
-                        "slL": this.inputValue,
-                        "slN": this.ipValue,
-                        "trangthai": "Chưa xử lí",
-                        "hotenLL": this.hotenLL,
-                        "emailLL": this.emailLL,
-                        "sdtLL": this.sdtLL,
-                        "diachiLL": this.diachiLL,
-                        "tongcong": this.tong,
-                        "ngaykhoihanh": this.selectedNgayKhoiHanh,
 
-                  })
-                        .then((response) => {
-                              if (response.data) {
-                                    this.dattour = response.data
-                                    console.log('iddt', this.dattour.idDT)
-                                    console.log('đặt tour', this.dattour)
-                              } else {
-                                    console.error('Response không có dữ liệu hoặc có lỗi từ server.');
-                              }
-                        })
-                        .catch((error) => {
-                              console.error('Có lỗi xảy ra trong quá trình gọi API:', error);
-                        });
                   for (let i = 0; i < this.forms.length; i++) {
                         axios.post('http://localhost:3000/api/TTHK/', {
                               "hotenHK": this.forms[i].hoten,
@@ -518,9 +516,74 @@ export default {
                                     console.log(error);
                               });
                   }
+                  axios.post('http://localhost:3000/api/thanhtoan/', {
+                        "phuongthuc": this.selectedRadio,
+                        "tongcong": this.giatritong,
+                        "trangthai": "Chưa xác nhận",
+                        "idT": this.$route.params.id,
+                        "idTK": localStorage.getItem('user'),
+                        "ngaykhoihanh": this.selectedNgayKhoiHanh,
+                  })
+                        .then((response) => {
+                              if (response.data) {
+                                    this.idTT = response.data.insertId;
+                                    this.thanhtoan = response.data
+                                    console.log('thanhtoan', this.thanhtoan)
+                              } else {
+                                    console.error('Response không có dữ liệu hoặc có lỗi từ server.');
+                              }
+                        })
+                        .catch((error) => {
+                              console.log(error);
+                        });
 
+                  axios.post('http://localhost:3000/api/dattour/' + urlid, {
+                        "idTK": localStorage.getItem('user'),
+                        "giaL": this.km[0].veNL,
+                        "giaN": this.giatre,
+                        "slL": this.inputValue,
+                        "slN": this.ipValue,
+                        "trangthai": "Chưa xử lí",
+                        "hotenLL": this.hotenLL,
+                        "emailLL": this.emailLL,
+                        "sdtLL": this.sdtLL,
+                        "diachiLL": this.diachiLL,
+                        "tongcong": this.giatritong,
+                        "ngaykhoihanh": this.selectedNgayKhoiHanh,
 
-                  this.$router.push({ name: 'thanhtoan', params: { idT: urlid } });
+                  })
+                        .then((response) => {
+                              if (response.data) {
+                                    this.dattour = response.data;
+                                    console.log('Đặt tour thành công:', this.dattour);
+
+                                    // Kiểm tra xem response.data có chứa insertId không
+                                    if (response.data.insertId) {
+                                          this.idDT = response.data.insertId;
+                                          if (this.idDT) {
+                                                this.$router.push({
+                                                      name: 'thanhtoan',
+                                                      params: {
+                                                            idT: urlid,
+                                                            idDT: this.idDT,
+                                                            idTT: this.idTT
+                                                      },
+                                                });
+                                          } else {
+                                                console.error("Giá trị 'idDT' không được đặt.");
+                                          }
+                                          console.log('ID mới:', this.idDT);
+                                    } else {
+                                          console.error('Response không có thuộc tính insertId hoặc có giá trị undefined.');
+                                    }
+                              } else {
+                                    console.error('Response không có dữ liệu hoặc có lỗi từ server.');
+                              }
+                        })
+                        .catch((error) => {
+                              console.error('Có lỗi xảy ra trong quá trình gọi API:', error);
+                        });
+
             },
             changeAttribute() {
                   // Thay đổi giá trị isDisabled để thay đổi thuộc tính HTML

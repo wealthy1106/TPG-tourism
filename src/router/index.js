@@ -76,9 +76,10 @@ const routes = [
             component: () => import("@/components/timkiem/timkiem.vue"),
       },
       {
-            path: "/thanhtoan/:idT",
+            path: "/thanhtoan/:idT/:idDT/:idTT",
             name: "thanhtoan",
             component: () => import("@/components/thanhtoan.vue"),
+
       },
       {
             path: "/giohang/:id",
