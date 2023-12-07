@@ -1,15 +1,21 @@
 import { createWebHistory, createRouter } from "vue-router";
 const routes = [
-      // {
-      //       path: "/test",
-      //       name: "test",
-      //       component: () => import("@/components/test.vue"),
-      // },
       {
             path: "/",
+            name: "dautien",
+            component: () => import("@/components/dautien.vue"),
+      },
+
+      {
+            path: "/dstour",
             name: "trangchu",
             component: () => import("@/components/trangchu.vue"),
             props: true,
+      },
+      {
+            path: "/tr",
+            name: "tr",
+            component: () => import("@/components/dautien.vue"),
       },
       {
             path: "/tour/:id/:idLT",
@@ -64,6 +70,11 @@ const routes = [
             path: "/timkiem/:idDD",
             name: "timkiem",
             component: () => import("@/components/timkiem/tour.vue"),
+      },
+      {
+            path: "/timkiem/:idTinh",
+            name: "timkiemtheotinh",
+            component: () => import("@/components/timkiem/timkiemtinh.vue"),
       },
       {
             path: "/tk/:tenDD",

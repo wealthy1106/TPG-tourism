@@ -1,6 +1,6 @@
 
 <template>
-      <div>
+      <!-- <div>
             <div>
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
                         <ol class="carousel-indicators">
@@ -28,7 +28,7 @@
                               style="margin-top: 7px;">Search</button>
                   </div>
             </div>
-      </div>
+      </div> -->
       <div class="text-center">
             <h6 class="section-title bg-white text-center text-primary px-3">Ưu đãi</h6>
             <h1 class="mb-5">Ưu đãi hấp dẫn</h1>
