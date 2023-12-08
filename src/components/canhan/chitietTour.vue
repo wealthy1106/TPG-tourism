@@ -8,58 +8,50 @@
                                     <div class="heading">
                                           <h5 class="fw-bold tieude">THÔNG TIN LIÊN LẠC</h5>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" :key="index" v-for="(tt, index) in tttour">
                                           <div class="col-12 col-md-6">
                                                 <span class="label">Họ tên</span>
-                                                <p class="info">E- o</p>
+                                                <p class="info">{{ tt.hotenLL }}</p>
                                           </div>
                                           <div class="col-md-6 col-12">
                                                 <span class="label">Email</span>
-                                                <p class="info">o@gmail.com</p>
+                                                <p class="info">{{ tt.emailLL }}</p>
                                           </div>
                                           <div class="col-md-6 col-12">
                                                 <span class="label">Địa chỉ</span>
                                                 <p class="info">
-                                                      Ls
+                                                      {{ tt.diachiLL }}
                                                 </p>
                                           </div>
-                                          <div class="col-md-3 col-6">
-                                                <span class="label">Di động</span>
-                                                <p class="info">057****458</p>
-                                          </div>
-                                          <div class="col-md-3 col-6">
+
+                                          <div class="col-md-6 col-12">
                                                 <span class="label">Điện thoại</span>
-                                                <p class="info">057****458</p>
+                                                <p class="info">{{ tt.sdtLL }}</p>
                                           </div>
-                                          <div class="col-md-3 col-12 d-none">
-                                                <span class="label">Số khách</span>
-                                                <p class="info">
-                                                      1 Người lớn
-                                                </p>
-                                          </div>
+
                                           <div class="col-12">
                                                 <span class="label">Ghi chú</span>
                                                 <p class="info">
-                                                      Booking từ travel.com.vn.
+                                                      Booking từ tpg-tourism.web.app
                                                 </p>
                                           </div>
                                     </div>
                               </div>
-                              <div class="booking-detail p-4 mb-4 bro">
+                              <div class="booking-detail p-4 mb-4 bro" :key="index" v-for="(tt, index) in tttour">
                                     <div class="heading">
                                           <h5 class="fw-bold tieude">CHI TIẾT BOOKING</h5>
                                     </div>
                                     <div class="row item">
                                           <div class="col-md-3 col-12 label">Số booking</div>
                                           <div class="col-md-9 col-12 text">
-                                                <span class="text-primary fw-bold">231111661903</span>
+                                                <span class="text-primary fw-bold">{{ tt.idDT }}</span>
                                                 (Quý khách vui lòng nhớ số booking để thuận
                                                 tiện cho các giao dịch sau này)
                                           </div>
                                     </div>
                                     <div class="row item">
                                           <div class="col-md-3 col-12 label">Trị giá booking</div>
-                                          <div class="col-md-9 col-12 text">0₫</div>
+                                          <div class="col-md-9 col-12 text"> {{ tt.tongcong }} ₫</div>
                                     </div>
                                     <div class="row item">
                                           <div class="col-md-3 col-12 label">Số tiền đã thanh toán</div>
@@ -67,12 +59,12 @@
                                     </div>
                                     <div class="row item">
                                           <div class="col-md-3 col-12 label">Số tiền còn lại</div>
-                                          <div class="col-md-9 col-12 text">0₫</div>
+                                          <div class="col-md-9 col-12 text">{{ tt.tongcong }} ₫</div>
                                     </div>
                                     <div class="row item">
                                           <div class="col-md-3 col-12 label">Ngày đăng ký</div>
                                           <div class="col-md-9 col-12 text">
-                                                11/11/2023 15:03:49
+                                                {{ formatDateTime(tt.ngayDT) }}
                                           </div>
                                     </div>
                                     <div class="row item">
@@ -80,28 +72,26 @@
                                                 Hình thức thanh toán
                                           </div>
                                           <div class="col-md-9 col-12 text">
-                                                Thanh toán bằng quét QRCode - Thẻ tín dụng (VISA/MASTER/JCB) Thẻ ATM - Dịch vụ
-                                                của
-                                                VNPay<br>
+                                                {{ tt.phuongthuc }}<br>
                                           </div>
                                     </div>
                                     <div class="row item">
                                           <div class="col-md-3 col-12 label">Tình trạng</div>
                                           <div class="col-md-9 col-12 text">
-                                                Booking đã tự hủy do quá thời hạn thanh toán
+                                                {{ tt.trangthai }}
                                           </div>
                                     </div>
-                                    <div class="row item">
+                                    <!-- <div class="row item">
                                           <div class="col-md-3 col-12 label">Thời hạn thanh toán</div>
                                           <div class="col-md-9 col-12 text">
                                                 <span class="text-primary fw-bold">11/11/23 16:03:49</span>
                                                 (Theo giờ Việt Nam. Booking sẽ tự động hủy nếu quá thời hạn thanh toán trên)
                                           </div>
-                                    </div>
+                                    </div> -->
                               </div>
                         </section>
                   </div>
-                  <div class="col-md-4 col-12 right bro">
+                  <div class="col-md-4 col-12 right bro" :key="index" v-for="(tt, index) in tttour">
                         <div class="group-checkout">
                               <div class="heading">
                                     <h5 class="fw-bold tieude">PHIẾU XÁC NHẬN BOOKING</h5>
@@ -109,46 +99,45 @@
                               <div class="product">
                                     <div class="product-image">
                                           <a href="#">
-                                                <img src="https://media.travel.com.vn/tour/tfd_220718041417_485554.jpg"
-                                                      class="img-fluid" alt="image">
+                                                <img :src="tt.hinhT" class="img-fluid" alt="image">
                                           </a>
                                     </div>
                                     <div class="product-content">
                                           <p class="title">
-                                                Hành trình Hoa và Biển: Đà Lạt - Nha Trang
+                                                {{ tt.tenT }}
                                           </p>
                                           <span>
                                                 Số booking:
-                                                <span class="text-primary fw-bold">231111661903</span>
+                                                <span class="text-primary fw-bold">{{ tt.idDT }}</span>
                                           </span>
                                     </div>
                               </div>
                               <div class="detail">
                                     <div class="row item">
-                                          <div class="col-4 fw-bold">Mã tour</div>
-                                          <div class="col-8 text-end">NDSGN5251-078-151123XE-V</div>
+                                          <div class="col-5 fw-bold">Mã tour</div>
+                                          <div class="col-7 text-end">{{ tt.idT }}</div>
                                     </div>
                                     <div class="row item">
-                                          <div class="col-4 fw-bold">Hành trình</div>
-                                          <div class="col-8 text-end">HCM - DA LAT/ NHA TRANG - HCM</div>
+                                          <div class="col-5 fw-bold">Hành trình</div>
+                                          <div class="col-7 text-end">{{ tt.tenT }}</div>
                                     </div>
                                     <div class="row item">
-                                          <div class="col-4 fw-bold">Ngày đi</div>
-                                          <div class="col-8 text-end">15/11/2023</div>
+                                          <div class="col-5 fw-bold">Ngày đi</div>
+                                          <div class="col-7 text-end">{{ formatDate(tt.ngaykhoihanh) }}</div>
                                     </div>
                                     <div class="row item">
-                                          <div class="col-4 fw-bold">Ngày về</div>
-                                          <div class="col-8 text-end">19/11/2023</div>
+                                          <div class="col-5 fw-bold">Ngày về</div>
+                                          <div class="col-7 text-end">{{ tt.ngayend }}</div>
                                     </div>
                                     <div class="row item">
-                                          <div class="col-4 fw-bold">Nơi khởi hành</div>
-                                          <div class="col-8 text-end">TP. Hồ Chí Minh</div>
+                                          <div class="col-5 fw-bold">Nơi khởi hành</div>
+                                          <div class="col-7 text-end">{{ tt.noikhoihanh }}</div>
                                     </div>
                               </div>
                               <div class="qr-code">
                                     <div class="image">
                                           <div class="wrapper">
-                                                <img style="width: 200px;" src="./../../assets/qr.png">
+                                                <img style="width: 200px;" src="./../../assets/qrcode.png">
                                           </div>
 
                                     </div>
@@ -173,6 +162,27 @@
 <style>
 .card card-body {
       width: 400px;
+}
+
+p,
+span {
+      font-size: 20px;
+      margin-top: 10px;
+}
+
+p .info {
+      font-size: 17px;
+}
+
+span .label {
+      font-size: 17px;
+}
+
+.text,
+.label,
+.fw-bold,
+.text-end {
+      font-size: 20px;
 }
 
 .find-booking .left .contact-info {
@@ -217,5 +227,44 @@
 }
 </style>
 <script>
+import axios from 'axios';
+export default {
+      props: ['idT', 'idDT'],
+      data() {
+            return {
+                  tttour: [],
+            }
 
+      },
+      mounted() {
+            var urlidTT = this.$route.params.idTT
+            var urlidDT = this.$route.params.idDT
+            axios.get('/api/dattour/' + urlidDT + '/' + urlidTT)
+                  .then((response) => {
+                        this.tttour = response.data;
+                        console.log('dattour', this.tttour)
+                  })
+                  .catch((error) => {
+                        console.log(error);
+                  });
+      },
+      methods: {
+            formatDateTime(dateTimeString) {
+                  const formattedDateTime = new Date(dateTimeString).toLocaleString('en-GB', {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric',
+                        hour12: false, // 24-hour format
+                  });
+                  return formattedDateTime;
+            },
+            formatDate(dateString) {
+                  const formattedDate = new Date(dateString).toLocaleDateString('en-GB');
+                  return formattedDate;
+            }
+      }
+}
 </script>

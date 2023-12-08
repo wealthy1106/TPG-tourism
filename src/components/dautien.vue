@@ -37,10 +37,13 @@
 
                   </div>
             </div>
-            <iframe width="1349" height="480" src="https://www.youtube.com/embed/MwdmFog6fc4"
-                  title="[PHIM TỰ GIỚI THIỆU] AMAZING HÀ GIANG | S35FILM" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
+            <div class="container">
+                  <iframe width="1100" height="480" src="https://www.youtube.com/embed/MwdmFog6fc4"
+                        title="[PHIM TỰ GIỚI THIỆU] AMAZING HÀ GIANG | S35FILM" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+            </div>
+
 
       </div>
       <div>
@@ -235,7 +238,7 @@ export default {
                   this.currentSlide = index;
             },
             tk() {
-                  this.$router.push({ name: "timkiemtinh", params: { idTDD: this.timkiem } });
+                  this.$router.push({ name: "tk", params: { tenDD: this.timkiem } });
                   // Thực hiện tìm kiếm dựa trên this.timkiem
                   console.log('Searching for:', this.timkiem);
                   // Thêm logic tìm kiếm của bạn ở đây

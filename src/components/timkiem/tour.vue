@@ -1,16 +1,19 @@
 <template>
       <div class="container">
             <div class="row">
-                  <div class="col-4">
-                        <router-link :to="{ name: 'timkiemtinh', params: { idTDD: tt.idTinh } }" style="width: 100%;"
-                              :key="index" v-for="(tt, index) in alltinh" :id="'tentinh-' + index" type="button"
-                              class="btn btn-light" @click="handleButtonClick(tt)">
-                              {{ tt.tenTinh }}
-                        </router-link>
-                        <!-- <button type="button" class="btn btn-light">Light</button> -->
+                  <div class="col-2">
+                        <div class="list-group" style="width: 100%;" :key="index" v-for="(tt, index) in alltinh"
+                              :id="'tentinh-' + index" type="button" @click="handleButtonClick(tt)">
+                              <a href="#" :class="{ 'active': selectedIndex === index }"
+                                    class="list-group-item list-group-item-action" aria-current="true">
+                                    {{ tt.tenTinh }}
+                              </a>
+
+                        </div>
+
                   </div>
 
-                  <div class="col-8">
+                  <div class="col-10">
                         <div>
                               <div :key="index" v-for="(tt, index) in  DD ">
                                     <h3 style="text-align: center;">{{ tt.tenDD }}</h3>
@@ -104,6 +107,11 @@ hr {
 #tentinh {
       width: 100%;
 }
+
+.active {
+      background-color: #3b969c;
+      /* Add other styling as needed */
+}
 </style>
     
 <script>
@@ -112,6 +120,7 @@ import axios from 'axios';
 export default {
       data() {
             return {
+                  selectedIndex: null,
                   tenmien: [],
                   isActive: false,
                   tinhMN: [],

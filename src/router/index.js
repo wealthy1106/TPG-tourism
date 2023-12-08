@@ -40,7 +40,7 @@ const routes = [
             component: () => import("@/components/canhan/user.vue"),
       },
       {
-            path: "/canhan/chitietTour",
+            path: "/canhan/chitietTour/:idDT/:idTT",
             name: "CTT",
             component: () => import("@/components/canhan/chitietTour.vue"),
       },
@@ -72,7 +72,7 @@ const routes = [
             component: () => import("@/components/timkiem/tour.vue"),
       },
       {
-            path: "/timkiem/:idTinh",
+            path: "/timkiemtinh/:idTinh",
             name: "timkiemtheotinh",
             component: () => import("@/components/timkiem/timkiemtinh.vue"),
       },
