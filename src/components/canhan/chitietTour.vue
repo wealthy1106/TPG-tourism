@@ -72,7 +72,45 @@
                                                 Hình thức thanh toán
                                           </div>
                                           <div class="col-md-9 col-12 text">
-                                                {{ tt.phuongthuc }}<br>
+                                                <select class="custom-select" v-model="tt.phuongthuc" style="width: 110px;">
+                                                      <option selected>{{ tt.phuongthuc }}</option>
+                                                      <option value="Trực tiếp">Trực tiếp</option>
+                                                      <option value="Online">Online</option>
+                                                </select>
+                                                <!-- {{ tt.phuongthuc }} -->
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                      data-target="#exampleModal">
+                                                      Xác nhận
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Xác
+                                                                              nhận</h5>
+                                                                        <button type="button" class="close"
+                                                                              data-dismiss="modal" aria-label="Close">
+                                                                              <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                  </div>
+                                                                  <div class="modal-body">
+                                                                        Xác nhận thay đổi phương thức thanh toán
+                                                                  </div>
+                                                                  <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                              data-dismiss="modal">Close</button>
+                                                                        <button @click="phuongthuc" type="button"
+                                                                              class="btn btn-primary">Xác
+                                                                              nhận</button>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                                <br>
                                           </div>
                                     </div>
                                     <div class="row item">
@@ -233,6 +271,7 @@ export default {
       data() {
             return {
                   tttour: [],
+                  phuongthucTT: '',
             }
 
       },
@@ -242,13 +281,28 @@ export default {
             axios.get('/api/dattour/' + urlidDT + '/' + urlidTT)
                   .then((response) => {
                         this.tttour = response.data;
-                        console.log('dattour', this.tttour)
+                        console.log('daydu', this.tttour)
                   })
                   .catch((error) => {
                         console.log(error);
                   });
       },
       methods: {
+            phuongthuc() {
+                  var urlidTT = this.$route.params.idTT;
+                  const selectedPhuongthuc = this.tttour.map(item => item.phuongthuc)[0];
+                  console.log('phuongthuc', selectedPhuongthuc);
+                  axios.put('/api/thanhtoan/updatephuongthuc/' + urlidTT, {
+                        "phuongthuc": selectedPhuongthuc
+                  })
+                        .then((response) => {
+                              this.phuongthucTT = response.data;
+                              console.log('dattour', this.tttour)
+                        })
+                        .catch((error) => {
+                              console.log(error);
+                        });
+            },
             formatDateTime(dateTimeString) {
                   const formattedDateTime = new Date(dateTimeString).toLocaleString('en-GB', {
                         year: 'numeric',

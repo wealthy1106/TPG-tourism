@@ -15,8 +15,9 @@
 
                   <div class="col-10">
                         <div class="container">
-                              <div :key="index" v-for="(tt, index) in tinhthanh ">
-                                    <h3 class="mb-5">Danh sách các điểm đến {{ tt.tenTinh }}</h3>
+                              <div>
+                                    <h3 :key="index" v-for="(tinh, index) in tinhthanh " class="mb-5">Danh sách các điểm đến
+                                          {{ tinh.tenTinh }}</h3>
                               </div>
                               <div class="map-route">
                                     <section class="section-07 mb-5">
@@ -199,12 +200,12 @@ export default {
                   // console.log('tentinh', this.tentinh)
                   // this.selectedIndex = index;
                   axios.post('http://localhost:3000/api/diadanh/tourtinh/', {
-                        "tentinh": this.tentinh.tenTinh
+                        "idTinh": this.tentinh.idTinh
                   })
                         .then((response) => {
                               this.tour = response.data;
                               console.log('dstourtheotinh', this.tour)
-                              console.log('tentinh', this.tour[0].idTinh)
+                              // console.log('tentinh', this.tour[0].idTinh)
                               axios.get('http://localhost:3000/api/diadanh/timkiemtentinh/' + this.tour[0].idTinh)
                                     .then((response) => {
                                           this.tinhthanh = response.data
@@ -213,6 +214,14 @@ export default {
                                     .catch((error) => {
                                           console.log(error);
                                     });
+                        })
+                        .catch((error) => {
+                              console.log(error);
+                        });
+                  axios.get('http://localhost:3000/api/diadanh/timkiem/tourtinh/' + this.tentinh.idTinh)
+                        .then((response) => {
+                              this.DD = response.data
+                              console.log('tourtheotinh', this.DD)
                         })
                         .catch((error) => {
                               console.log(error);

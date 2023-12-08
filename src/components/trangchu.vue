@@ -345,7 +345,7 @@
       margin-left: 3px;
       text-indent: -999px;
       cursor: pointer;
-      background-color: rgb(24, 59, 75);
+      /* background-color: rgb(24, 59, 75); */
       background-clip: padding-box;
       border-top: 10px solid transparent;
       border-bottom: 10px solid transparent;

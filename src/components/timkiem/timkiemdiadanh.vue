@@ -142,7 +142,8 @@ export default {
                   dsdiemden: [],
                   urlid: '',
                   tinhthanh: [],
-                  DD: [],
+                  shouldPerformSearch: true,
+                  // DD: [],
             };
       },
       watch: {
@@ -179,7 +180,7 @@ export default {
             axios.get('http://localhost:3000/api/TDD/timkiemDD/' + urlid)
                   .then((response) => {
                         this.tour = response.data
-                        console.log('tourtheotinh', this.DD)
+                        console.log('tourtheotinh', this.tour)
                   })
                   .catch((error) => {
                         console.log(error);
@@ -199,35 +200,39 @@ export default {
                   console.log('Selected Tinh:', selectedTinh);
                   // Bạn có thể thực hiện các xử lý khác tại đây.
                   this.tentinh = selectedTinh;
-                  // console.log('tentinh', this.tentinh)
+                  console.log('tentinh', this.tentinh)
                   // this.selectedIndex = index;
                   axios.post('http://localhost:3000/api/diadanh/tourtinh/', {
-                        "tentinh": this.tentinh.tenTinh
+                        "idTinh": this.tentinh.idTinh
                   })
                         .then((response) => {
                               this.tour = response.data;
-                              console.log('dstourtheotinh', this.tour)
-                              console.log('tentinh', this.tour[0].idTinh)
+                              console.log('tour', this.tour)
+                              // console.log('tentinh', this.tour[0].idTinh)
 
                         })
                         .catch((error) => {
                               console.log(error);
                         });
+                  if (this.shouldPerformSearch) {
+                        this.performSearch(this.$route.params.tenDD)
+                        this.shouldPerformSearch = false; // Đặt biến cờ thành false sau khi đã gọi performSearch()
+                  }
             },
-            timkiemtheotinh() {
-                  this.$router.push({ name: "timkiemtinh", params: { idTDD: this.alltinh.idTinh } });
-            },
+            // timkiemtheotinh() {
+            //       this.$router.push({ name: "timkiemtinh", params: { idTDD: this.alltinh.idTinh } });
+            // },
             performSearch(params) {
                   // Gọi API hoặc thực hiện tìm kiếm với params
                   axios.get(`http://localhost:3000/api/TDD/timkiemDD/${params.tenDD}`)
                         .then((response) => {
                               this.tour = response.data;
-                              console.log('tourtheotinh', this.tour);
+                              console.log('timkiem', this.tour);
                         })
                         .catch((error) => {
                               console.log(error);
                         });
-                  axios.get(`http://localhost:3000/api/TDD/timkiemDD/${params.tenDD}`)
+                  axios.get(`http://localhost:3000/api/diadanh/tour/timkiemtour/${params.tenDD}`)
                         .then((response) => {
                               this.DD = response.data
                               console.log('diadanh', this.DD)
