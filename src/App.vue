@@ -11,15 +11,17 @@ import fot from '../src/components/footer.vue'
     <div>
       <router-view />
     </div>
-    <!-- <messenger-chat></messenger-chat> -->
+    <messenger-chat></messenger-chat>
     <fot />
+
   </div>
 </template>
-<!-- <script>
+<script>
+import MessengerChat from "./components/MessengerChat.vue";
 export default {
   components: {
     MessengerChat
   },
   // Other Vue.js options go here
 }
-</script> -->
+</script>

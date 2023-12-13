@@ -12,7 +12,7 @@
                         </ol>
                         <div class="carousel-inner">
                               <div :key="index" v-for="(tt, index) in tinh" class="carousel-item"
-                                    :class="{ 'active': index === selectedImageIndex }" style="height: 500px;">
+                                    :class="{ 'active': index === selectedImageIndex }" style="height: 600px;">
                                     <img :src="tt.hinh1" class="d-block w-100" style="height: 100%;" alt="...">
                               </div>
                         </div>
@@ -188,7 +188,7 @@
 
 .banner-info {
       position: absolute;
-      top: 50%;
+      top: 65%;
       /* Đặt vị trí ở giữa trục Y */
       left: 50%;
       /* Đặt vị trí ở giữa trục X */
@@ -232,6 +232,14 @@ export default {
                   .catch((error) => {
                         console.log(error);
                   });
+            // axios.get('/api/diadanh/tinh/')
+            //       .then((response) => {
+            //             this.tinh = response.data;
+            //             console.log('tinh', response.data)
+            //       })
+            //       .catch((error) => {
+            //             console.log(error);
+            //       });
       },
       methods: {
             goToSlide(index) {

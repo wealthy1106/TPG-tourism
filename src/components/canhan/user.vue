@@ -245,9 +245,9 @@
                                                 <router-link :to="{ name: 'CTT', params: { idDT: tt.idDT, idTT: tt.idTT } }">
                                                       <button class="btn btn-primary top">Chi tiết</button>
                                                 </router-link>
-                                                <button type="button" class="btn btn-primary">
+                                                <!-- <button type="button" class="btn btn-primary">
                                                       Xem chi tiết
-                                                </button>
+                                                </button> -->
                                           </td>
                                     </tr>
 
